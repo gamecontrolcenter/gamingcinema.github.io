@@ -23,33 +23,59 @@
         <a href="#games">Walkthroughs</a>
         <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
       </nav>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">☰</button>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>PS5 Pro 4K Cinematic Walkthroughs</h1>
-      <p class="lead">No-commentary full-game walkthroughs captured natively on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling. Every cutscene, every boss, every chapter — preserved as an interactive movie.</p>
-    </section>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sidebar-section">
+          <h4>Browse</h4>
+          <ul class="sidebar-list" id="browseList">
+            <li><a href="#" class="active" data-filter-type="all" data-filter-value="all">All Walkthroughs <span class="count" id="countAll">0</span></a></li>
+            <li><a href="#" data-filter-type="newest" data-filter-value="newest">Recently Added</a></li>
+          </ul>
+        </div>
 
-    <section id="games">
-      <div class="search-bar">
-        <input type="search" id="searchInput" placeholder="Search game name, developer, or genre…" autocomplete="off">
-        <span class="filter-chip active" data-filter="all">All</span>
-        <span class="filter-chip" data-filter="Action-Adventure">Action-Adventure</span>
-        <span class="filter-chip" data-filter="Survival">Survival</span>
-        <span class="filter-chip" data-filter="Action RPG">RPG</span>
-        <span class="filter-chip" data-filter="Open World">Open World</span>
-        <span class="filter-chip" data-filter="First-Person Shooter">Shooter</span>
-        <span class="results-count" id="resultsCount"></span>
-      </div>
+        <div class="sidebar-section">
+          <h4>By Genre</h4>
+          <ul class="sidebar-list" id="genreList"></ul>
+        </div>
 
-      <div class="games-grid" id="gamesGrid"></div>
-      <div class="no-results" id="noResults" style="display:none;">
-        No games match your search. Try a different keyword or genre.
+        <div class="sidebar-section">
+          <h4>By Series</h4>
+          <ul class="sidebar-list" id="seriesList"></ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h4>By Developer</h4>
+          <ul class="sidebar-list" id="devList"></ul>
+        </div>
       </div>
-    </section>
-  </main>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <h1>PS5 Pro 4K Cinematic Walkthroughs</h1>
+        <p class="lead">No-commentary full-game walkthroughs captured natively on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling. Every cutscene, every boss, every chapter — preserved as an interactive movie.</p>
+      </section>
+
+      <section id="games">
+        <div class="search-bar">
+          <input type="search" id="searchInput" placeholder="Search game name, developer, character…" autocomplete="off">
+          <span class="results-count" id="resultsCount"></span>
+        </div>
+
+        <div class="active-filter" id="activeFilter" style="display:none;"></div>
+
+        <div class="games-grid" id="gamesGrid"></div>
+        <div class="no-results" id="noResults" style="display:none;">
+          No games match your search. Try a different keyword or category.
+        </div>
+      </section>
+    </main>
+  </div>
 
   <footer class="site-footer">
     <p>© 2026 Gaming Cinema · No-commentary PS5 Pro 4K cinematic walkthroughs · <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
@@ -57,7 +83,7 @@
 
   <script>
     let allGames = [];
-    let activeFilter = 'all';
+    let activeFilter = { type: 'all', value: 'all' };
     let activeQuery = '';
 
     function thumbnailUrl(game) {
@@ -65,24 +91,128 @@
       return firstVideoId ? `https://i.ytimg.com/vi/${firstVideoId}/hqdefault.jpg` : '';
     }
 
+    function unique(arr) {
+      return [...new Set(arr)];
+    }
+
+    function getAllGenres(games) {
+      const counts = {};
+      games.forEach(g => (g.genre || []).forEach(genre => {
+        counts[genre] = (counts[genre] || 0) + 1;
+      }));
+      return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    }
+
+    function getAllSeries(games) {
+      const counts = {};
+      games.forEach(g => {
+        if (g.series) counts[g.series] = (counts[g.series] || 0) + 1;
+      });
+      return Object.entries(counts).filter(([, c]) => c >= 1).sort((a, b) => b[1] - a[1]);
+    }
+
+    function getAllDevelopers(games) {
+      const counts = {};
+      games.forEach(g => {
+        if (g.developer) counts[g.developer] = (counts[g.developer] || 0) + 1;
+      });
+      return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    }
+
+    function renderSidebar() {
+      // Genres
+      const genreList = document.getElementById('genreList');
+      genreList.innerHTML = getAllGenres(allGames).map(([genre, count]) =>
+        `<li><a href="#" data-filter-type="genre" data-filter-value="${genre}">${genre} <span class="count">${count}</span></a></li>`
+      ).join('');
+
+      // Series
+      const seriesList = document.getElementById('seriesList');
+      seriesList.innerHTML = getAllSeries(allGames).map(([series, count]) =>
+        `<li><a href="#" data-filter-type="series" data-filter-value="${series}">${series} <span class="count">${count}</span></a></li>`
+      ).join('');
+
+      // Developers
+      const devList = document.getElementById('devList');
+      devList.innerHTML = getAllDevelopers(allGames).map(([dev, count]) =>
+        `<li><a href="#" data-filter-type="developer" data-filter-value="${dev}">${dev} <span class="count">${count}</span></a></li>`
+      ).join('');
+
+      document.getElementById('countAll').textContent = allGames.length;
+
+      // Wire up clicks
+      document.querySelectorAll('.sidebar-list a').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          const type = a.dataset.filterType;
+          const value = a.dataset.filterValue;
+          setFilter(type, value);
+          // Close mobile sidebar
+          document.getElementById('sidebar').classList.remove('open');
+        });
+      });
+    }
+
+    function setFilter(type, value) {
+      activeFilter = { type, value };
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-list a').forEach(a => {
+        a.classList.toggle('active',
+          a.dataset.filterType === type && a.dataset.filterValue === value);
+      });
+      renderGames();
+    }
+
     function renderGames() {
       const grid = document.getElementById('gamesGrid');
       const noResults = document.getElementById('noResults');
       const count = document.getElementById('resultsCount');
+      const activeBanner = document.getElementById('activeFilter');
       const q = activeQuery.trim().toLowerCase();
 
-      const filtered = allGames.filter(g => {
-        const matchesFilter = activeFilter === 'all' ||
-          (g.genre && g.genre.includes(activeFilter));
-        if (!matchesFilter) return false;
-        if (!q) return true;
-        const searchBlob = [
-          g.title, g.developer, g.publisher, ...(g.genre || []), ...(g.tags || []), g.guide
-        ].join(' ').toLowerCase();
-        return searchBlob.includes(q);
+      let filtered = allGames.filter(g => {
+        if (activeFilter.type === 'all' || activeFilter.type === 'newest') return true;
+        if (activeFilter.type === 'genre') return (g.genre || []).includes(activeFilter.value);
+        if (activeFilter.type === 'series') return g.series === activeFilter.value;
+        if (activeFilter.type === 'developer') return g.developer === activeFilter.value;
+        return true;
       });
 
+      if (q) {
+        filtered = filtered.filter(g => {
+          const searchBlob = [
+            g.title, g.developer, g.publisher, ...(g.genre || []),
+            ...(g.tags || []), g.series, g.guide,
+            ...(g.chapters || []).map(c => `${c.name} ${c.summary}`)
+          ].join(' ').toLowerCase();
+          return searchBlob.includes(q);
+        });
+      }
+
+      // Sort
+      if (activeFilter.type === 'newest') {
+        filtered.sort((a, b) => b.year - a.year);
+      } else {
+        filtered.sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title));
+      }
+
       count.textContent = `${filtered.length} game${filtered.length === 1 ? '' : 's'}`;
+
+      // Active filter banner
+      if (activeFilter.type !== 'all') {
+        const labelMap = { genre: 'Genre', series: 'Series', developer: 'Developer', newest: 'Sorted by' };
+        activeBanner.innerHTML = `
+          <span class="filter-label">${labelMap[activeFilter.type]}:</span>
+          <span class="filter-value">${activeFilter.value === 'newest' ? 'Newest first' : activeFilter.value}</span>
+          <a href="#" id="clearFilter">Clear</a>`;
+        activeBanner.style.display = 'flex';
+        document.getElementById('clearFilter').addEventListener('click', e => {
+          e.preventDefault();
+          setFilter('all', 'all');
+        });
+      } else {
+        activeBanner.style.display = 'none';
+      }
 
       if (filtered.length === 0) {
         grid.innerHTML = '';
@@ -93,14 +223,15 @@
 
       grid.innerHTML = filtered.map(g => {
         const thumb = thumbnailUrl(g);
-        const partsLabel = g.videos.length === 1 ? 'Full Walkthrough' :
-          `${g.videos.length} parts`;
+        const partsLabel = g.videos.length === 1 ? 'Full Walkthrough' : `${g.videos.length} parts`;
         const ageBadge = g.ageRestricted ? '<span class="badge-age">18+</span>' : '';
+        const chapterCount = g.chapters?.length || 0;
+        const chapterBadge = chapterCount > 0 ? `<span class="badge-chapters">${chapterCount} chapters</span>` : '';
         const tags = (g.tags || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('');
         return `
           <article class="game-card">
             <a href="${g.slug}.html" class="card-link">
-              <div class="thumb" style="background-image:url('${thumb}')">${ageBadge}</div>
+              <div class="thumb" style="background-image:url('${thumb}')">${ageBadge}${chapterBadge}</div>
               <div class="meta">
                 <h3>${g.title}</h3>
                 <div class="submeta">${g.developer} · ${g.year} · ${partsLabel}</div>
@@ -116,8 +247,7 @@
       try {
         const res = await fetch('games.json');
         allGames = await res.json();
-        // Sort by year descending (newest first), then alpha
-        allGames.sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title));
+        renderSidebar();
         renderGames();
       } catch (err) {
         document.getElementById('gamesGrid').innerHTML =
@@ -130,13 +260,9 @@
         renderGames();
       });
 
-      document.querySelectorAll('.filter-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-          activeFilter = chip.dataset.filter;
-          renderGames();
-        });
+      // Mobile sidebar toggle
+      document.getElementById('sidebarToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('open');
       });
     });
   </script>
