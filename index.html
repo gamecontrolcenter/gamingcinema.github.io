@@ -4,52 +4,141 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gaming Cinema — PS5 Pro 4K Cinematic Walkthroughs</title>
-  <meta name="description" content="Premium PS5 Pro 4K HDR 60FPS cinematic walkthroughs with PSSR upscaling. No commentary. Resident Evil, God of War, Ghost of Yōtei, Stellar Blade, Indiana Jones, and more.">
+  <meta name="description" content="Premium PS5 Pro 4K HDR 60FPS cinematic walkthroughs with PSSR upscaling. No commentary. Resident Evil, God of War, Ghost of Yōtei, Stellar Blade, Indiana Jones, Alan Wake 2, The Last of Us, Horizon, and more.">
   <meta name="google-site-verification" content="e046sHJ-h1sfjQRwp55bHoKrUVUQG-aM37po9Vsa1Z4" />
   <meta property="og:title" content="Gaming Cinema — PS5 Pro 4K Cinematic Walkthroughs">
-  <meta property="og:description" content="No-commentary PS5 Pro 4K HDR cinematic walkthroughs with PSSR upscaling.">
+  <meta property="og:description" content="No-commentary PS5 Pro 4K HDR cinematic walkthroughs with PSSR upscaling. Full game coverage across 30+ AAA titles.">
   <meta property="og:url" content="https://gamingcinema.github.io/">
   <meta property="og:type" content="website">
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #1a1a1a; }
-    h1 { color: #8B0000; font-size: 2.5em; margin-bottom: 0.2em; }
-    h2 { color: #1a1a1a; border-bottom: 2px solid #8B0000; padding-bottom: 8px; margin-top: 2em; }
-    a { color: #8B0000; }
-    .tagline { color: #555; font-size: 1.2em; font-style: italic; margin-top: 0; }
-    .game-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-    .game-card { background: #f5f5f5; padding: 20px; border-radius: 8px; }
-    .game-card h3 { margin-top: 0; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Gaming Cinema</h1>
-  <p class="tagline">PS5 Pro 4K Cinematic Walkthroughs | No Commentary | PSSR Enhanced</p>
-  <p><strong>YouTube Channel:</strong> <a href="https://www.youtube.com/@4k_gaming_cinema">@4k_gaming_cinema</a></p>
-  <h2>About</h2>
-  <p>Gaming Cinema specializes in PS5 Pro native 4K 60FPS HDR cinematic walkthroughs with PSSR upscaling. No commentary, HUD-minimal presentation, full-length AAA coverage. From survival horror to Norse mythology epics, every walkthrough is captured to be experienced as an interactive movie.</p>
-  <h2>Featured Walkthroughs</h2>
-  <div class="game-list">
-    <div class="game-card">
-      <h3><a href="indiana-jones-the-great-circle.html">Indiana Jones and the Great Circle</a></h3>
-      <p>MachineGames' 2024 adventure. Complete walkthrough on PS5 Pro 4K HDR PSSR. Part I + Part II in one page.</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html">Gaming Cinema</a>
+        <span class="tagline">PS5 Pro · 4K HDR · PSSR · No Commentary</span>
+      </div>
+      <nav class="primary">
+        <a href="#games">Walkthroughs</a>
+        <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
+      </nav>
     </div>
-    <div class="game-card">
-      <h3>Ghost of Yōtei (2025)</h3>
-      <p>Sucker Punch's open-world samurai epic. Part I + Part II full coverage.</p>
-    </div>
-    <div class="game-card">
-      <h3>Resident Evil Requiem</h3>
-      <p>Capcom's 2026 entry. Complete walkthrough with both endings.</p>
-    </div>
-    <div class="game-card">
-      <h3>Stellar Blade</h3>
-      <p>Shift Up's action adventure. Full walkthrough and all boss fights.</p>
-    </div>
-  </div>
-  <h2>Connect</h2>
-  <ul>
-    <li><a href="https://www.youtube.com/@4k_gaming_cinema">YouTube</a></li>
-  </ul>
-  <p style="margin-top: 4em; color: #888; font-size: 0.9em;">© 2026 Gaming Cinema. All gameplay footage captured on PlayStation 5 Pro.</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>PS5 Pro 4K Cinematic Walkthroughs</h1>
+      <p class="lead">No-commentary full-game walkthroughs captured natively on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling. Every cutscene, every boss, every chapter — preserved as an interactive movie.</p>
+    </section>
+
+    <section id="games">
+      <div class="search-bar">
+        <input type="search" id="searchInput" placeholder="Search game name, developer, or genre…" autocomplete="off">
+        <span class="filter-chip active" data-filter="all">All</span>
+        <span class="filter-chip" data-filter="Action-Adventure">Action-Adventure</span>
+        <span class="filter-chip" data-filter="Survival">Survival</span>
+        <span class="filter-chip" data-filter="Action RPG">RPG</span>
+        <span class="filter-chip" data-filter="Open World">Open World</span>
+        <span class="filter-chip" data-filter="First-Person Shooter">Shooter</span>
+        <span class="results-count" id="resultsCount"></span>
+      </div>
+
+      <div class="games-grid" id="gamesGrid"></div>
+      <div class="no-results" id="noResults" style="display:none;">
+        No games match your search. Try a different keyword or genre.
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Gaming Cinema · No-commentary PS5 Pro 4K cinematic walkthroughs · <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
+  </footer>
+
+  <script>
+    let allGames = [];
+    let activeFilter = 'all';
+    let activeQuery = '';
+
+    function thumbnailUrl(game) {
+      const firstVideoId = game.videos[0]?.id;
+      return firstVideoId ? `https://i.ytimg.com/vi/${firstVideoId}/hqdefault.jpg` : '';
+    }
+
+    function renderGames() {
+      const grid = document.getElementById('gamesGrid');
+      const noResults = document.getElementById('noResults');
+      const count = document.getElementById('resultsCount');
+      const q = activeQuery.trim().toLowerCase();
+
+      const filtered = allGames.filter(g => {
+        const matchesFilter = activeFilter === 'all' ||
+          (g.genre && g.genre.includes(activeFilter));
+        if (!matchesFilter) return false;
+        if (!q) return true;
+        const searchBlob = [
+          g.title, g.developer, g.publisher, ...(g.genre || []), ...(g.tags || []), g.guide
+        ].join(' ').toLowerCase();
+        return searchBlob.includes(q);
+      });
+
+      count.textContent = `${filtered.length} game${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+      noResults.style.display = 'none';
+
+      grid.innerHTML = filtered.map(g => {
+        const thumb = thumbnailUrl(g);
+        const partsLabel = g.videos.length === 1 ? 'Full Walkthrough' :
+          `${g.videos.length} parts`;
+        const ageBadge = g.ageRestricted ? '<span class="badge-age">18+</span>' : '';
+        const tags = (g.tags || []).slice(0, 3).map(t => `<span class="tag">${t}</span>`).join('');
+        return `
+          <article class="game-card">
+            <a href="${g.slug}.html" class="card-link">
+              <div class="thumb" style="background-image:url('${thumb}')">${ageBadge}</div>
+              <div class="meta">
+                <h3>${g.title}</h3>
+                <div class="submeta">${g.developer} · ${g.year} · ${partsLabel}</div>
+                <div class="tags">${tags}</div>
+              </div>
+            </a>
+          </article>
+        `;
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('games.json');
+        allGames = await res.json();
+        // Sort by year descending (newest first), then alpha
+        allGames.sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title));
+        renderGames();
+      } catch (err) {
+        document.getElementById('gamesGrid').innerHTML =
+          '<div class="no-results">Could not load games. Refresh the page.</div>';
+        console.error(err);
+      }
+
+      document.getElementById('searchInput').addEventListener('input', e => {
+        activeQuery = e.target.value;
+        renderGames();
+      });
+
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeFilter = chip.dataset.filter;
+          renderGames();
+        });
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,464 @@
+[
+  {
+    "slug": "resident-evil-requiem",
+    "title": "Resident Evil Requiem",
+    "year": 2026,
+    "developer": "Capcom",
+    "publisher": "Capcom",
+    "genre": ["Survival", "Action-Adventure"],
+    "tags": ["Resident Evil", "Capcom", "PS5 Pro Enhanced"],
+    "ageRestricted": true,
+    "videos": [
+      { "label": "Full Walkthrough", "id": "km87KsxFmjc", "duration": "10:00:19" },
+      { "label": "Destroy Elpis vs Release Elpis (Both Endings)", "id": "UIFqTu-9Yf0", "duration": "28:38" }
+    ],
+    "guide": "Resident Evil Requiem is Capcom's latest entry in the long-running Resident Evil franchise, picking up the series' next chapter with new protagonist Grace Ashcroft. The story unfolds inside the sprawling Ashcroft Estate and the laboratory complex beneath it, where decades of corporate experiments have left behind a contained outbreak and a singular antagonist — the Requiem Entity. Players navigate detailed Gothic interiors, sunken gardens, and an observatory tower while solving mechanical puzzles, managing limited ammunition, and confronting bosses such as the Corrupted Surgeon and the Mutated Guardian.\n\nThe walkthrough on Gaming Cinema captures the full game on PS5 Pro in 4K HDR 60FPS with PSSR upscaling. Every story scene, key item, and chapter transition is preserved without commentary, letting the soundtrack, voice performances, and signature Capcom sound design carry the experience. A separate side-by-side video covers both endings — the Destroy Elpis path and the Release Elpis path — for viewers who want the complete narrative resolution without replaying the full campaign."
+  },
+  {
+    "slug": "resident-evil-4-remake",
+    "title": "Resident Evil 4 Remake",
+    "year": 2023,
+    "developer": "Capcom",
+    "publisher": "Capcom",
+    "genre": ["Survival", "Action"],
+    "tags": ["Resident Evil", "Capcom", "Leon S. Kennedy"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "v0O7NwHTZgE", "duration": "7:09:56" },
+      { "label": "Part II", "id": "ekUgNtDxSBE", "duration": "7:05:23" }
+    ],
+    "guide": "Resident Evil 4 Remake reimagines Capcom's 2005 masterpiece with modern combat, restructured pacing, and the visual fidelity demanded by the PlayStation 5 Pro. Six years after the events of Raccoon City, Leon S. Kennedy travels to a remote European village on a presidential rescue mission for Ashley Graham. The walkthrough covers the entire campaign across two parts — village, castle, and island — and includes every Ganados encounter, every merchant interaction, and the full slate of boss fights against Bitores Mendez, Ramon Salazar, Jack Krauser, and Lord Saddler.\n\nCaptured at 4K HDR 60FPS with PSSR upscaling, the no-commentary presentation lets Capcom's atmospheric sound design lead. Las Plagas reveals, Regenerator confrontations, and the central Ashley sequences are preserved at full cinematic length. Part I covers the village and early castle chapters; Part II completes the castle siege, the island assault, and the final confrontation with Saddler."
+  },
+  {
+    "slug": "resident-evil-2-remake",
+    "title": "Resident Evil 2 Remake",
+    "year": 2019,
+    "developer": "Capcom",
+    "publisher": "Capcom",
+    "genre": ["Survival", "Action-Adventure"],
+    "tags": ["Resident Evil", "Capcom", "Raccoon City"],
+    "ageRestricted": true,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "chZVIt19L5M", "duration": "11:33:19" }
+    ],
+    "guide": "Resident Evil 2 Remake brings the 1998 Raccoon City outbreak to modern audiences using the RE Engine. Rookie officer Leon S. Kennedy and college student Claire Redfield arrive at the besieged Raccoon Police Department on the same night, and players follow both perspectives through the same overlapping spaces. The Police Department, the sewers, and the underground NEST laboratory each gate the next chapter through inventory management, puzzle solving, and increasingly tense encounters with the iconic Tyrant — Mr. X — and William Birkin's mutating forms.\n\nThe Gaming Cinema walkthrough delivers the complete campaign on PS5 Pro in 4K HDR 60FPS with PSSR upscaling, captured at cinematic pace without commentary. Every key item collection, document, save room transition, and boss confrontation is preserved, with the original Akira Yamaoka-influenced score and Capcom's reimagined ambient sound design carrying the tension uninterrupted."
+  },
+  {
+    "slug": "resident-evil-3-remake",
+    "title": "Resident Evil 3 Remake",
+    "year": 2020,
+    "developer": "Capcom",
+    "publisher": "Capcom",
+    "genre": ["Survival", "Action"],
+    "tags": ["Resident Evil", "Capcom", "Jill Valentine", "Nemesis"],
+    "ageRestricted": true,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "a7EIqioQla4", "duration": "4:44:00" }
+    ],
+    "guide": "Resident Evil 3 Remake retells Jill Valentine's desperate escape from Raccoon City as Umbrella's Nemesis bio-weapon hunts her relentlessly through the collapsing streets. Alongside UBCS operative Carlos Oliveira, the campaign moves from downtown rooftops to the police station, the city hospital, and the underground NEST 2 facility. The faster pacing and dodge-focused combat differentiate it from RE2 Remake while preserving the same RE Engine production values.\n\nThe complete walkthrough is captured on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary. Every Nemesis encounter — from the clock tower escape to the final parasitic transformation — is preserved at cinematic length, alongside the Carlos hospital sequences that fans either love or argue about. The compressed runtime makes this a one-sitting watch for viewers who prefer their RE in a single uninterrupted screening."
+  },
+  {
+    "slug": "god-of-war-ragnarok",
+    "title": "God of War Ragnarök",
+    "year": 2022,
+    "developer": "Santa Monica Studio",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["God of War", "Norse Mythology", "Kratos", "Atreus"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "9SK4CWUlZCI", "duration": "9:58:36" },
+      { "label": "Part II", "id": "5ZtdbOHRDi8", "duration": "8:59:35" }
+    ],
+    "guide": "God of War Ragnarök concludes the Norse saga begun in the 2018 reboot. Kratos and a now-teenaged Atreus traverse all Nine Realms — Midgard, Vanaheim, Asgard, Svartalfheim, Alfheim, Niflheim, Muspelheim, Jötunheim, and Helheim — to confront an Aesir-led prophecy and Odin's ruling order. The combat system inherits the precision of the previous entry while adding the Draupnir Spear, expanded shield mechanics, and a deeper companion roster that includes Tyr, Freya, Mimir, Sindri, and Brok.\n\nCaptured across two parts on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary, the walkthrough preserves every major confrontation: the Thor encounter on the lake, the Heimdall duel, the Odin ravens, and the climactic Ragnarök sequence at Asgard. Quiet moments — Kratos and Atreus' father-and-son exchanges, Freya's mourning, the workshop banter — are preserved at full length so the emotional through-line lands as Santa Monica intended."
+  },
+  {
+    "slug": "god-of-war-2018",
+    "title": "God of War (2018)",
+    "year": 2018,
+    "developer": "Santa Monica Studio",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["God of War", "Norse Mythology", "Kratos", "Leviathan Axe"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "vqtfh5NDCj4", "duration": "11:40:56" }
+    ],
+    "guide": "God of War (2018) restarts the franchise in Norse mythology, introducing a weathered older Kratos and his son Atreus as they journey to scatter the ashes of Faye from the highest peak in the realms. The reinvented Leviathan Axe combat, single-shot camera, and intimate father-son narrative redefined what God of War could be after the Greek-era originals. Boss encounters with Baldur, the Stranger, set against the looming presence of Jörmungandr the World Serpent, anchor the campaign.\n\nThe complete walkthrough is captured at 4K HDR 60FPS with PSSR upscaling on PlayStation 5 Pro, no commentary. Every realm transition — Midgard, Alfheim, Helheim, Jötunheim — and every Valkyrie-adjacent set piece is preserved. The intentionally quiet stretches of the journey, where the dialogue between Kratos and Atreus carries the story, remain uncut so the relationship development reads at the pace Santa Monica intended."
+  },
+  {
+    "slug": "doom-the-dark-ages",
+    "title": "Doom: The Dark Ages",
+    "year": 2025,
+    "developer": "id Software",
+    "publisher": "Bethesda Softworks",
+    "genre": ["First-Person Shooter"],
+    "tags": ["Doom", "id Software", "Doom Slayer"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Full Game Playthrough", "id": "cFmvs9jJJTM", "duration": "11:34:35" }
+    ],
+    "guide": "Doom: The Dark Ages is id Software's medieval-fantasy prequel to the modern Doom trilogy, recasting the Slayer as a sword-and-shield warrior fighting through Argent D'Nur and across hellish battlefields. The Shield Saw replaces traditional dodge mechanics — players parry, block, and counterattack in a grounded combat loop closer to a heavy-metal Dark Souls than the airborne movement of Doom Eternal. Mounted dragon flight and the colossal Atlan mech segments break the rhythm with set-piece spectacle.\n\nCaptured as a single full-game playthrough on PS5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary. The walkthrough hits every chapter, every boss confrontation, and every weapon unlock — from the Skullcrusher to the BFG's medieval variant. id Software's Mick Gordon–style soundtrack and ambient demon roars carry uninterrupted, making the entire campaign play like a heavy-metal feature film on the big screen."
+  },
+  {
+    "slug": "alan-wake-2",
+    "title": "Alan Wake 2",
+    "year": 2023,
+    "developer": "Remedy Entertainment",
+    "publisher": "Epic Games Publishing",
+    "genre": ["Survival Horror", "Psychological"],
+    "tags": ["Alan Wake", "Remedy", "Saga Anderson"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "wDnsgTTWjNg", "duration": "10:09:51" },
+      { "label": "Part II", "id": "6pyqW9kg7zw", "duration": "10:09:57" }
+    ],
+    "guide": "Alan Wake 2 is Remedy Entertainment's long-awaited return to Bright Falls, Washington, thirteen in-game years after Alan's disappearance into the Dark Place. The story alternates between two playable protagonists — FBI agent Saga Anderson, investigating ritualistic murders in the Pacific Northwest, and Alan Wake himself, trapped inside a shifting noir-Manhattan Dark Place where the manuscript he writes warps reality. The Mind Place and the Writer's Room mechanics build narrative puzzles directly into the gameplay loop.\n\nCaptured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary, the walkthrough preserves the full arc — Saga's investigation through Cauldron Lake and Watery, Alan's traversal of the Dark Place subway and lighthouse, the Old Gods of Asgard musical chapter, and the climactic Lake House finale. The Remedy Connected Universe references to Control are fully captured so the cross-over context lands."
+  },
+  {
+    "slug": "stellar-blade",
+    "title": "Stellar Blade",
+    "year": 2024,
+    "developer": "Shift Up",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action", "Hack and Slash"],
+    "tags": ["Stellar Blade", "Shift Up", "Eve"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "i_E6V_GKrmg", "duration": "6:39:23" },
+      { "label": "Part II", "id": "plQuXD3kIqs", "duration": "6:39:04" },
+      { "label": "All Boss Fights Compilation", "id": "vlP0fo24cwY", "duration": "1:21:37" }
+    ],
+    "guide": "Stellar Blade is Shift Up's PlayStation 5 exclusive that put the Korean studio on the mainstream gaming map. Players control Eve, an airborne paratrooper sent to retake an Earth overrun by hostile Naytiba, with Adam and Lily forming her ground support in the ruined city of Eidos 7. The combat system blends parry-focused melee, Beta Skill super attacks, and Burst abilities into a flow closer to Bayonetta than to Souls-likes, while exploration takes Eve through wastelands, abandoned subways, and lush vertical environments.\n\nThe walkthrough delivers the full campaign across two parts plus a dedicated Boss Fights compilation, all captured on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every named enemy — from Maelstrom and Gigas to Stalker, Abaddon, and the late-game encounter with Tachy — is preserved, and Eve's costume changes and skill tree progression are uninterrupted so the visual and mechanical layers both land at full clarity."
+  },
+  {
+    "slug": "indiana-jones-the-great-circle",
+    "title": "Indiana Jones and the Great Circle",
+    "year": 2024,
+    "developer": "MachineGames",
+    "publisher": "Bethesda Softworks",
+    "genre": ["Action-Adventure"],
+    "tags": ["Indiana Jones", "MachineGames", "Bethesda", "Lucasfilm Games"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "7JuHk5NjOFk", "duration": "6:58:58" },
+      { "label": "Part II", "id": "v_z3xc891mM", "duration": "6:59:37" }
+    ],
+    "guide": "Indiana Jones and the Great Circle is MachineGames' first-person action-adventure starring the legendary archaeologist between Raiders of the Lost Ark and The Last Crusade. The campaign globetrots from Marshall College and the Vatican Archives in Rome to the Sukhothai temples of Thailand, the Giza Plateau in Egypt, and a Himalayan monastery, chasing the mystery of the Great Circle alongside ally Gina Lombardi while opposed by Emmerich Voss.\n\nThe complete two-part walkthrough is captured on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Part I covers the opening break-in, Vatican infiltration, Roman rooftop chase, and the Sukhothai chapter; Part II takes the story through the Pyramid trials, Nazi dig site, dogfight escape, Himalayan ascent, and the final boss confrontation with Voss inside the Great Circle. Whip combat, signature melee brawls, and the original Indiana Jones theme score are all preserved at cinematic length."
+  },
+  {
+    "slug": "echoes-of-the-end",
+    "title": "Echoes of the End",
+    "year": 2025,
+    "developer": "Myrkur Games",
+    "publisher": "Myrkur Games",
+    "genre": ["Action-Adventure", "Fantasy"],
+    "tags": ["Echoes of the End", "Myrkur Games", "Iceland"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "vQg2Lckx5aI", "duration": "7:04:00" },
+      { "label": "Part II", "id": "NbkARj4fIgk", "duration": "7:03:35" }
+    ],
+    "guide": "Echoes of the End is an Icelandic action-adventure from Myrkur Games following Ryn, a former soldier whose latent magical abilities draw her into a continent-spanning conspiracy alongside companion Abram. The combat blends sword strikes with elemental abilities — telekinesis, ranged blasts, environmental manipulation — and the world design leans heavily on Icelandic landscape inspiration, with towering volcanic ridges and frost-bitten coastlines forming the backdrop to story chapters.\n\nThe walkthrough captures the full game across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every major story scene, boss encounter, and traversal puzzle is preserved so the moment-to-moment pacing matches the developer's intent. As a smaller-studio release without the marketing footprint of AAA titles, Echoes of the End rewards viewers who want a complete, uncut narrative cinematic of a quieter fantasy entry."
+  },
+  {
+    "slug": "dying-light-2",
+    "title": "Dying Light 2: Stay Human",
+    "year": 2022,
+    "developer": "Techland",
+    "publisher": "Techland",
+    "genre": ["Action RPG", "Survival"],
+    "tags": ["Dying Light", "Techland", "Parkour", "Zombies"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "5_CsTcLdDzI", "duration": "11:25:08" },
+      { "label": "Part II", "id": "W3C2zFUZBHg", "duration": "11:25:08" }
+    ],
+    "guide": "Dying Light 2: Stay Human places Aiden Caldwell in the fortified city of Villedor twenty years after the original outbreak, where surviving factions — the Peacekeepers, the Survivors, and the Renegades — fight for control of a vertical urban landscape. The parkour traversal system expanded from the original, paragliding and grappling additions opened up the rooftops, and the day-night cycle continues to govern combat tension as Volatile infected dominate the streets after dark.\n\nThe Gaming Cinema walkthrough runs across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. The full main campaign is preserved — every faction decision, every Aiden-Mia memory scene, every named confrontation with Hakon, Lawan, Waltz, and Colonel Williams. Endings branch based on player choices; this walkthrough delivers Techland's intended primary route at uncut cinematic pace."
+  },
+  {
+    "slug": "until-dawn-remake",
+    "title": "Until Dawn Remake",
+    "year": 2024,
+    "developer": "Ballistic Moon",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Survival Horror", "Interactive Drama"],
+    "tags": ["Until Dawn", "Ballistic Moon", "Wendigo"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "9_td9NFh0oc", "duration": "4:48:54" }
+    ],
+    "guide": "Until Dawn Remake reconstructs Supermassive Games' 2015 narrative horror in Unreal Engine 5, returning to the snow-locked Washington cabin retreat one year after the Hannah and Beth incident. Eight young friends — Sam, Mike, Chris, Josh, Ashley, Jessica, Matt, and Emily — gather at the Washington Lodge for what is meant to be a memorial weekend but rapidly becomes a survival nightmare against both a Psycho stalker and the Wendigo legends rooted in the mountain.\n\nThe Gaming Cinema walkthrough delivers a complete narrative playthrough on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every Butterfly Effect decision, every collectible totem, and every named character arc is captured at cinematic length. Because Until Dawn's identity is choice-driven, the walkthrough commits to a single narrative path — viewers see one full continuous run with most characters alive into the final dawn sequence."
+  },
+  {
+    "slug": "spider-man-miles-morales",
+    "title": "Marvel's Spider-Man: Miles Morales",
+    "year": 2020,
+    "developer": "Insomniac Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["Spider-Man", "Miles Morales", "Insomniac", "Marvel"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "_V00MtLOd1I", "duration": "9:10:33" }
+    ],
+    "guide": "Marvel's Spider-Man: Miles Morales is Insomniac Games' standalone follow-up to the 2018 original, centering on Miles as he steps into the spider-suit role while Peter Parker is away. The story unfolds across a snow-blanketed Harlem during Christmas, where the conflict between Roxxon Energy Corporation and the Underground faction puts Miles' Tío Aaron, mother Rio Morales, and best friend Phin Mason at the center of the personal stakes.\n\nThe walkthrough captures the full main campaign on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every story mission, every Venom-power unlock, and every named boss encounter is preserved. Insomniac's holiday-set Manhattan, the Roxxon facility infiltrations, and the final Phin confrontation all hit at cinematic length, while the John Paesano score and the in-suit voice acting deliver without interruption."
+  },
+  {
+    "slug": "ghost-of-yotei",
+    "title": "Ghost of Yōtei",
+    "year": 2025,
+    "developer": "Sucker Punch Productions",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure", "Open World"],
+    "tags": ["Ghost of Yotei", "Sucker Punch", "Samurai", "Hokkaido"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "munZDXA1Fts", "duration": "8:43:30" },
+      { "label": "Part II", "id": "TZ4a_feuXno", "duration": "8:43:05" }
+    ],
+    "guide": "Ghost of Yōtei is Sucker Punch Productions' follow-up to Ghost of Tsushima, relocating the open-world samurai formula to Hokkaidō's Ezo region. Players take on Atsu, an onryō-driven warrior hunting the Six of Yōtei across a Mount Yōtei landscape that draws heavily on Ainu cultural reference and period-accurate Edo-adjacent atmospheres. Stance-based katana combat, mounted traversal, and standalone duels against named enemies — the Snake, the Spider, the Dragon, the Oni, the Kitsune, and the lead villain — structure the campaign.\n\nThe complete two-part walkthrough is captured on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every named duel is preserved at cinematic length, including the climactic confrontation at Mount Yōtei itself. The pillar-of-fire ambient design and Ilan Eshkeri's score carry uninterrupted, and Sucker Punch's signature wind-direction navigation hint stays in frame so the world's aesthetic philosophy remains intact for the viewer."
+  },
+  {
+    "slug": "control-ultimate-edition",
+    "title": "Control Ultimate Edition",
+    "year": 2019,
+    "developer": "Remedy Entertainment",
+    "publisher": "505 Games",
+    "genre": ["Action-Adventure", "Supernatural"],
+    "tags": ["Control", "Remedy", "Federal Bureau of Control", "Jesse Faden"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "oLlwYCiRh2w", "duration": "8:57:19" },
+      { "label": "Part II", "id": "S8rxWndkqBI", "duration": "8:56:54" }
+    ],
+    "guide": "Control Ultimate Edition combines Remedy Entertainment's base game with both the AWE (Alan Wake connection) and Foundation expansions, all running on the updated PlayStation 5 engine for the Ultimate release. Jesse Faden steps into the Oldest House — the Federal Bureau of Control's shifting brutalist headquarters in New York — searching for her brother Dylan and finding herself elevated to Director after the Hiss invasion. The Service Weapon shapeshifts between five forms and pairs with telekinetic abilities for a combat loop built around vertical destruction.\n\nThe walkthrough delivers the full Ultimate Edition campaign — base story plus AWE and Foundation — across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary. The Janitor Ahti's musical chapter, the Mold-1 confrontation, and the AWE crossover with Alan Wake's narrative are all preserved uncut. Remedy's Brutalist architecture and Petri Alanko's score build an atmosphere that the no-commentary format protects fully."
+  },
+  {
+    "slug": "silent-hill-2-remake",
+    "title": "Silent Hill 2 Remake",
+    "year": 2024,
+    "developer": "Bloober Team",
+    "publisher": "Konami",
+    "genre": ["Survival Horror", "Psychological"],
+    "tags": ["Silent Hill", "Bloober Team", "Konami", "Akira Yamaoka"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "i5q0INEpkEY", "duration": "8:10:41" },
+      { "label": "Part II", "id": "bq7245He5t0", "duration": "8:10:41" }
+    ],
+    "guide": "Silent Hill 2 Remake is Bloober Team's full reconstruction of the 2001 Konami classic, with Akira Yamaoka returning to update the iconic soundtrack. James Sunderland arrives in the fog-locked town of Silent Hill after receiving a letter from his dead wife Mary, and the linear narrative — apartments, hospital, prison, Lakeview Hotel — unfolds with the deliberate dread that defined the original. Pyramid Head, the Abstract Daddy, the Mannequins, and the Lying Figures all return with reworked encounter design.\n\nThe walkthrough runs across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every story scene with Maria, Eddie, Angela, and Laura is preserved at full length. The walkthrough targets the In Water ending — Silent Hill 2's canonical narrative resolution — though references to the Leave, Maria, and Rebirth alternatives surface naturally through the exploration. Bloober's fog work and Yamaoka's reorchestrated themes are the centerpiece of the cinematic experience."
+  },
+  {
+    "slug": "the-last-of-us-part-2-remaster",
+    "title": "The Last of Us Part II Remastered",
+    "year": 2024,
+    "developer": "Naughty Dog",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure", "Survival"],
+    "tags": ["The Last of Us", "Naughty Dog", "Ellie", "Abby"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "IZpFOzOPDzU", "duration": "8:07:43" },
+      { "label": "Part II", "id": "hzLLkDZ94JY", "duration": "8:07:43" },
+      { "label": "Part III", "id": "bKQ6ixJGqAA", "duration": "8:08:05" }
+    ],
+    "guide": "The Last of Us Part II Remastered is Naughty Dog's PlayStation 5 reissue of the 2020 sequel, enhanced with refined lighting, faster loading, and the new No Return roguelike survival mode. The campaign follows Ellie and Abby's parallel arcs through post-apocalyptic Jackson, Seattle, and Santa Barbara, alternating perspectives across the WLF, Seraphites, and Rattlers factions. The structural and emotional risks of the original story are preserved fully — Joel's fate, the theater confrontation, the Santa Barbara finale, and the farm epilogue.\n\nThe complete walkthrough runs across three parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every flashback, every faction confrontation, and the Lev, Yara, Dina, and Jesse character arcs are preserved at cinematic length. Gustavo Santaolalla's score and Naughty Dog's audio design carry uninterrupted, letting the emotional weight of the runtime land at the pace Druckmann's narrative was designed for."
+  },
+  {
+    "slug": "the-last-of-us-part-1-remastered",
+    "title": "The Last of Us Part I Remastered",
+    "year": 2022,
+    "developer": "Naughty Dog",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure", "Survival"],
+    "tags": ["The Last of Us", "Naughty Dog", "Joel", "Ellie"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "oQ8B-tbsmk4", "duration": "7:21:50" },
+      { "label": "Part II", "id": "CWw7A7gS8IY", "duration": "7:21:09" }
+    ],
+    "guide": "The Last of Us Part I is Naughty Dog's PlayStation 5 ground-up rebuild of the 2013 original, using the Part II engine to bring updated character models, improved AI behaviors, and modernized accessibility options to the foundational story of Joel and Ellie. Twenty years after the Cordyceps outbreak collapses civilization, smuggler Joel agrees to escort fourteen-year-old Ellie across the United States to the Fireflies, encountering Tess, Bill, Henry, Sam, David, and Marlene along the way.\n\nThe complete walkthrough is captured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary. Every story sequence — the Boston QZ, Pittsburgh detour, Lakeside Resort winter chapter, and the Salt Lake City finale — is preserved at full length. Gustavo Santaolalla's iconic guitar score and the original voice performances from Troy Baker and Ashley Johnson are the centerpiece of the cinematic experience."
+  },
+  {
+    "slug": "hogwarts-legacy",
+    "title": "Hogwarts Legacy",
+    "year": 2023,
+    "developer": "Avalanche Software",
+    "publisher": "Warner Bros. Games",
+    "genre": ["Action RPG", "Open World"],
+    "tags": ["Hogwarts Legacy", "Harry Potter", "Wizarding World", "Avalanche"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "ZTBLybta9wo", "duration": "10:50:47" },
+      { "label": "Part II", "id": "rJnXoFRB9ks", "duration": "10:50:47" },
+      { "label": "Part III", "id": "88pOW0bAj_g", "duration": "10:50:47" }
+    ],
+    "guide": "Hogwarts Legacy places the player as a fifth-year transfer student to Hogwarts in the late 1800s, decades before the Harry Potter timeline, with an Ancient Magic plot threading the campaign together. The open-world Wizarding World includes Hogsmeade Village, the Forbidden Forest, and a region-spanning map dotted with field guide pages, Merlin Trials, and Bandit Camps. Players select house — Gryffindor, Slytherin, Ravenclaw, or Hufflepuff — and learn dozens of spells across combat, exploration, and stealth.\n\nThe complete walkthrough spans three parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. The main story arc — Professor Fig, Professor Black, Sebastian Sallow, Ominis Gaunt, Natty, Poppy — is preserved through to the Ranrok confrontation and the Keepers' final reveal. Every major story beat, including the Unforgivable Curses arc through Sebastian's relationship questline, lands at full cinematic pace alongside the John Williams–influenced original score."
+  },
+  {
+    "slug": "horizon-forbidden-west",
+    "title": "Horizon Forbidden West",
+    "year": 2022,
+    "developer": "Guerrilla Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action RPG", "Open World"],
+    "tags": ["Horizon", "Guerrilla Games", "Aloy", "Post-Apocalyptic"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part 1", "id": "PYZM1412NCY", "duration": "10:40:21" },
+      { "label": "Part 2", "id": "gSStmyHJTaw", "duration": "10:40:21" },
+      { "label": "Part 3", "id": "rUghS4KbfwQ", "duration": "10:40:18" }
+    ],
+    "guide": "Horizon Forbidden West continues Aloy's quest to restore Earth's biosphere after the events of Zero Dawn, travelling west from Carja territory into the Tenakth-dominated western lands. New tribes, the Quen newcomers from beyond the seas, and a returning antagonist arc featuring Sylens drive a continent-spanning narrative across Vegas ruins, San Francisco bay, and Yosemite analogues. Aloy gains the Pullcaster, the Shieldwing, and the Diving Mask, opening verticality, glide traversal, and underwater chapters absent from the original.\n\nThe complete walkthrough runs across three parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary. Every main quest, every Tallneck override, and every Cauldron is preserved. Boss encounters — Tremortusk, Slitherfangs, Slaughterspine — and the climactic confrontation against the antagonist faction are all captured at cinematic length, with Guerrilla's environmental storytelling and Joris de Man's expanded score delivering the experience uninterrupted."
+  },
+  {
+    "slug": "banishers-ghosts-of-new-eden",
+    "title": "Banishers: Ghosts of New Eden",
+    "year": 2024,
+    "developer": "Don't Nod",
+    "publisher": "Focus Entertainment",
+    "genre": ["Action RPG", "Supernatural"],
+    "tags": ["Banishers", "Don't Nod", "DontNod", "Focus Entertainment"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "nD6T6N9FPDY", "duration": "10:01:58" },
+      { "label": "Part II", "id": "Ngdh4C7o1Gk", "duration": "10:01:58" }
+    ],
+    "guide": "Banishers: Ghosts of New Eden is Don't Nod's supernatural action RPG set in 17th century New England, following the partnership of Banishers Antea Duarte and Red mac Raith as they investigate a haunting on the colonial settlement of New Eden. Early in the story Antea is killed and returns as a spirit, and the dual-character mechanic — Red living, Antea spectral — drives both combat and the narrative's persistent moral questions: ascend the dead, blame the living, or sacrifice Red to resurrect her.\n\nThe complete walkthrough is captured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every haunting case, every named character arc — Charles, Thickskin, Joëlla — and the climactic choice between Ascension, Blame, or Resurrection are preserved. Don't Nod's atmospheric New England coastline, the autumnal lighting, and Pierre-Marie Cabéro's score deliver the emotional weight of the moral framework at full cinematic length."
+  },
+  {
+    "slug": "ratchet-clank-rift-apart",
+    "title": "Ratchet & Clank: Rift Apart",
+    "year": 2021,
+    "developer": "Insomniac Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure", "Platformer"],
+    "tags": ["Ratchet & Clank", "Insomniac", "Rivet"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Cinematic Walkthrough", "id": "tFZRxSVD714", "duration": "10:58:24" }
+    ],
+    "guide": "Ratchet & Clank: Rift Apart is Insomniac Games' inter-dimensional Lombax adventure built around the PlayStation 5's SSD-enabled rift mechanic, where Ratchet and Clank tear between dimensions mid-combat with no perceptible loading. Doctor Nefarious returns as Emperor Nefarious in an alternate reality, while new protagonist Rivet — the dimensional counterpart to Ratchet — opens up parallel story chapters across multiple planets including Nefarious City, Sargasso, Savali, and Cordelion.\n\nThe complete walkthrough is captured on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every weapon unlock — from the Burst Pistol through the RYNO 8 — every named boss, and every dimensional pocket sequence is preserved. Insomniac's signature humor, the Mark Mothersbaugh score, and the cross-Lombax friendship arc carry uninterrupted, making this one of the most visually showcase-worthy cinematic walkthroughs in the channel's library."
+  },
+  {
+    "slug": "horizon-zero-dawn-remastered",
+    "title": "Horizon Zero Dawn Remastered",
+    "year": 2024,
+    "developer": "Guerrilla Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action RPG", "Open World"],
+    "tags": ["Horizon", "Guerrilla Games", "Aloy", "Robot Dinosaurs"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "_Wf9-vehoXU", "duration": "7:27:01" },
+      { "label": "Part II", "id": "IJYZoMqLJak", "duration": "7:26:10" }
+    ],
+    "guide": "Horizon Zero Dawn Remastered is Guerrilla Games' modernized rebuild of the 2017 original, using Horizon Forbidden West's engine to update the post-apocalyptic adventure of Aloy through Nora, Carja, and Banuk territories. The narrative of Aloy's hunt for the truth behind her birth, the Faro Plague, and Project Zero Dawn remains untouched, while the visual and animation upgrades bring the original cast — Rost, Erend, Varl, Sylens, Ted Faro — closer to the Forbidden West fidelity standard.\n\nThe walkthrough runs across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every Cauldron override, every Tallneck climb, and every main story beat through the Meridian siege and the HADES confrontation is preserved. The Thunderjaw and Stormbird encounters that defined the original's combat identity are captured at full cinematic length, with the Joris de Man / Niels van der Leest score delivering the legendary Horizon atmospheric design uninterrupted."
+  },
+  {
+    "slug": "star-wars-jedi-survivor",
+    "title": "Star Wars Jedi: Survivor",
+    "year": 2023,
+    "developer": "Respawn Entertainment",
+    "publisher": "Electronic Arts",
+    "genre": ["Action-Adventure", "Souls-like"],
+    "tags": ["Star Wars Jedi", "Respawn", "Cal Kestis", "BD-1"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "H14m-hXIc-w", "duration": "11:19:44" },
+      { "label": "Part II", "id": "B4quMNNYilw", "duration": "11:18:41" }
+    ],
+    "guide": "Star Wars Jedi: Survivor continues Cal Kestis' story five years after Fallen Order, with a more weathered Cal balancing five lightsaber stances, an expanded skill tree, and a companion roster that grows to include Bode Akuna, Merrin, Greez, and Cere Junda. The narrative arcs across the cantina hub world of Koboh, the Hidden Path on Jedha, and the legendary Tanalorr — a lost sanctuary that ties the High Republic era to Cal's present-day struggle against the Empire and Bode's hidden agenda.\n\nThe complete walkthrough runs across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every named encounter — Rayvis, Dagan Gera, the Ninth Sister return, the final confrontation with Bode — is preserved at full cinematic length. BD-1's audio cues, the Stephen Barton / Gordy Haab score, and the Force lore deep cuts (Tanalorr, the Hidden Path) all land without interruption."
+  },
+  {
+    "slug": "star-wars-jedi-fallen-order",
+    "title": "Star Wars Jedi: Fallen Order",
+    "year": 2019,
+    "developer": "Respawn Entertainment",
+    "publisher": "Electronic Arts",
+    "genre": ["Action-Adventure", "Souls-like"],
+    "tags": ["Star Wars Jedi", "Respawn", "Cal Kestis", "Order 66"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part 1", "id": "w9ocnvea1vM", "duration": "8:19:20" },
+      { "label": "Part 2", "id": "09SYmc3E_jM", "duration": "8:19:20" }
+    ],
+    "guide": "Star Wars Jedi: Fallen Order introduces Cal Kestis, a Padawan who survived Order 66 by hiding on the scrapyard planet Bracca. When his abilities are exposed, he joins former Jedi Cere Junda and pilot Greez Dritus aboard the Mantis to find a Holocron containing the names of Force-sensitive children before the Inquisitorius reaches it. The Souls-like combat, Metroidvania traversal, and lightsaber stance progression define a game that successfully repositioned Star Wars within single-player action gaming.\n\nThe complete walkthrough is captured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every planet — Bogano, Zeffo, Kashyyyk, Dathomir, Ilum, Nur — is traversed in full, with the named confrontations including the Second Sister, the Ninth Sister, and the surprise Darth Vader sequence preserved at cinematic length. BD-1's chirps, Gordy Haab's score, and the Star Wars Legends-flavored lore carry the experience uninterrupted."
+  },
+  {
+    "slug": "spider-man-2",
+    "title": "Marvel's Spider-Man 2",
+    "year": 2023,
+    "developer": "Insomniac Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["Spider-Man", "Marvel", "Insomniac", "Venom"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "rAynY-UNEmo", "duration": "7:42:51" },
+      { "label": "Part II", "id": "SRcebBWDQps", "duration": "7:42:51" }
+    ],
+    "guide": "Marvel's Spider-Man 2 brings both Peter Parker and Miles Morales into the same PlayStation 5 exclusive campaign, with a doubled traversal map covering Manhattan, Brooklyn, and Queens. The Kraven the Hunter / Venom dual-villain arc carries the story, with the symbiote suit transforming Peter mid-campaign while Miles continues developing his Venom electric abilities. Insomniac's web-wing additions speed up navigation across the expanded city.\n\nThe complete walkthrough is captured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every named encounter — Kraven, Sandman, Lizard, Mister Negative cameo, the symbiote-corrupted Peter sequences, the final Venom confrontation — is preserved at cinematic length. John Paesano's expanded score and the dual-protagonist cutscene work make the narrative arc one of Insomniac's most cinematic releases, well-suited to a sit-down feature-film viewing format."
+  },
+  {
+    "slug": "spider-man-remastered",
+    "title": "Marvel's Spider-Man Remastered",
+    "year": 2020,
+    "developer": "Insomniac Games",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["Spider-Man", "Marvel", "Insomniac", "Peter Parker"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "ysnnVSCrk-E", "duration": "8:33:25" },
+      { "label": "Part II", "id": "j8clWDcwgVs", "duration": "8:33:25" }
+    ],
+    "guide": "Marvel's Spider-Man Remastered is Insomniac Games' PlayStation 5 reissue of the 2018 original, with updated character models, ray-traced reflections, and a redesigned Peter Parker face model. The story follows a more experienced Peter Parker eight years into his Spider-Man career, working alongside Mary Jane Watson, Aunt May, Otto Octavius, and Yuri Watanabe as Mister Negative's Demons, the Sinister Six, and a city-shaking finale unfold across Manhattan.\n\nThe walkthrough captures the full main story across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every named villain encounter — Kingpin, Shocker, Vulture, Electro, Rhino, Scorpion, Mister Negative, and Doctor Octopus — and every Mary Jane and Miles stealth chapter is preserved at cinematic length. John Paesano's score, the iconic web-swing soundscape, and the original voice work carry uninterrupted."
+  },
+  {
+    "slug": "uncharted-legacy-of-thieves",
+    "title": "Uncharted: Legacy of Thieves Collection",
+    "year": 2022,
+    "developer": "Naughty Dog",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure"],
+    "tags": ["Uncharted", "Naughty Dog", "Nathan Drake", "Chloe Frazer"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "TzNZ53Zmhwg", "duration": "11:58:13" },
+      { "label": "Part II (Variant)", "id": "P-pf3eanllA", "duration": "11:58:13" }
+    ],
+    "guide": "Uncharted: Legacy of Thieves Collection bundles Uncharted 4: A Thief's End and Uncharted: The Lost Legacy on PlayStation 5 with updated frame rates and load times. A Thief's End closes Nathan Drake's saga as he rejoins his brother Sam in pursuit of the legendary pirate colony Libertalia, with Elena and Sully drawn into the chase across Madagascar, Scotland, and tropical Pacific island chains. The Lost Legacy turns the lens to Chloe Frazer and Nadine Ross searching for the Tusk of Ganesh through the Western Ghats of India.\n\nThe complete collection walkthrough is preserved on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every Naughty Dog set piece — the Madagascar truck chase, the Libertalia mountainside, the Hoysala train sequence — is captured at full cinematic length. Henry Jackman and Henry Jackman / Nolan North voice work alike deliver uninterrupted, and the closing notes of Nathan Drake's farewell sequence and Chloe's standalone reveal land at the pace Naughty Dog intended."
+  },
+  {
+    "slug": "guardians-of-the-galaxy",
+    "title": "Marvel's Guardians of the Galaxy",
+    "year": 2021,
+    "developer": "Eidos-Montréal",
+    "publisher": "Square Enix",
+    "genre": ["Action-Adventure"],
+    "tags": ["Guardians of the Galaxy", "Marvel", "Star-Lord", "Eidos-Montréal"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "NTUiVC1ZijE", "duration": "9:42:42" },
+      { "label": "Part II", "id": "Qty9sjJwrOU", "duration": "9:42:42" }
+    ],
+    "guide": "Marvel's Guardians of the Galaxy is Eidos-Montréal's third-person action adventure with players controlling Peter Quill / Star-Lord while commanding Gamora, Drax, Rocket, and Groot through a single-player campaign that pulls heavily from the comics rather than the MCU films. The team confronts the Universal Church of Truth, the Worldmind Hala, and the Magus, all while navigating the comedic ensemble dynamic Eidos became known for.\n\nThe complete walkthrough is captured across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. Every dialogue branch, every Huddle Up team-shout moment, and every named encounter — Lady Hellbender, Grand Unifier Raker, the Magus, Cosmo cameos — is preserved at cinematic length. The licensed 1980s soundtrack and the Star-Lord ship sequences deliver the experience without commentary interruption, giving the original Eidos-Montréal vision the showcase format it deserves."
+  },
+  {
+    "slug": "ghost-of-tsushima",
+    "title": "Ghost of Tsushima",
+    "year": 2020,
+    "developer": "Sucker Punch Productions",
+    "publisher": "Sony Interactive Entertainment",
+    "genre": ["Action-Adventure", "Open World"],
+    "tags": ["Ghost of Tsushima", "Sucker Punch", "Samurai", "Mongol Invasion"],
+    "ageRestricted": false,
+    "videos": [
+      { "label": "Part I", "id": "F-KaoHbR2RE", "duration": "10:09:54" },
+      { "label": "Part II", "id": "02KBd40xRpA", "duration": "10:10:22" }
+    ],
+    "guide": "Ghost of Tsushima is Sucker Punch Productions' 2020 samurai open-world adventure set during the first Mongol invasion of Japan in 1274. Jin Sakai, last of his clan after the Mongol landing at Komoda Beach, sets out to liberate Tsushima Island from Khotun Khan, allying with Yuna, Sensei Ishikawa, Lady Masako, Norio, and the assassin Tomoe while gradually abandoning the samurai code for the more pragmatic 'Ghost' identity.\n\nThe complete walkthrough runs across two parts on PS5 Pro at 4K HDR 60FPS with PSSR upscaling and no commentary. The main story — Komoda Beach, Castle Kaneda, Mongol fortress assaults, Lord Shimura confrontation — is preserved at cinematic length. Sucker Punch's wind-guided navigation, the Director's Cut Iki Island expansion (where applicable), the Mythic Tales side quests, and Shigeru Umebayashi's score all carry uninterrupted, making this one of the channel's most visually iconic open-world walkthroughs."
+  }
+]
