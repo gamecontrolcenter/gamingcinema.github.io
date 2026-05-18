@@ -549,3 +549,28 @@ footer.site-footer a:hover { text-decoration: underline; }
 @media (max-width: 600px) {
   .games-grid { grid-template-columns: 1fr; }
 }
+
+/* Collapsible sidebar sections */
+.sidebar-section.collapsible .section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 0 10px;
+  padding: 4px 0;
+}
+.sidebar-section.collapsible .section-toggle:hover {
+  color: var(--accent, #f5b341);
+}
+.sidebar-section.collapsible .chevron {
+  font-size: 0.78em;
+  transition: transform 0.2s ease;
+  opacity: 0.6;
+}
+.sidebar-section.collapsible.collapsed .chevron {
+  transform: rotate(-90deg);
+}
+.sidebar-section.collapsible.collapsed .sidebar-list {
+  display: none;
+}

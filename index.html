@@ -38,18 +38,18 @@
           </ul>
         </div>
 
-        <div class="sidebar-section">
-          <h4>By Genre</h4>
+        <div class="sidebar-section collapsible" data-section="genre">
+          <h4 class="section-toggle"><span>By Genre</span><span class="chevron">▾</span></h4>
           <ul class="sidebar-list" id="genreList"></ul>
         </div>
 
-        <div class="sidebar-section">
-          <h4>By Series</h4>
+        <div class="sidebar-section collapsible" data-section="series">
+          <h4 class="section-toggle"><span>By Series</span><span class="chevron">▾</span></h4>
           <ul class="sidebar-list" id="seriesList"></ul>
         </div>
 
-        <div class="sidebar-section">
-          <h4>By Developer</h4>
+        <div class="sidebar-section collapsible" data-section="developer">
+          <h4 class="section-toggle"><span>By Developer</span><span class="chevron">▾</span></h4>
           <ul class="sidebar-list" id="devList"></ul>
         </div>
       </div>
@@ -263,6 +263,17 @@
       // Mobile sidebar toggle
       document.getElementById('sidebarToggle').addEventListener('click', () => {
         document.getElementById('sidebar').classList.toggle('open');
+      });
+
+      // Collapsible sidebar sections — persist state in localStorage
+      document.querySelectorAll('.sidebar-section.collapsible').forEach(sec => {
+        const key = 'gc_section_' + sec.dataset.section;
+        // Restore previous state (default: open)
+        if (localStorage.getItem(key) === 'collapsed') sec.classList.add('collapsed');
+        sec.querySelector('.section-toggle').addEventListener('click', () => {
+          sec.classList.toggle('collapsed');
+          localStorage.setItem(key, sec.classList.contains('collapsed') ? 'collapsed' : 'open');
+        });
       });
     });
   </script>

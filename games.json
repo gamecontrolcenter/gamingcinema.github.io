@@ -5,7 +5,7 @@
     "year": 2023,
     "developer": "Remedy Entertainment",
     "publisher": "Epic Games Publishing",
-    "series": "Alan Wake",
+    "series": null,
     "genre": [
       "Survival Horror",
       "Action-Adventure"
@@ -86,8 +86,7 @@
     "publisher": "Focus Entertainment",
     "series": null,
     "genre": [
-      "Action RPG",
-      "Dark Fantasy"
+      "Action RPG"
     ],
     "tags": [
       "Don't Nod",
@@ -164,11 +163,10 @@
     "year": 2019,
     "developer": "Remedy Entertainment",
     "publisher": "505 Games",
-    "series": "Remedy Connected Universe",
+    "series": null,
     "genre": [
       "Action-Adventure",
-      "Supernatural",
-      "Third-Person Shooter"
+      "Shooter"
     ],
     "tags": [
       "Remedy Entertainment",
@@ -245,10 +243,10 @@
     "year": 2025,
     "developer": "id Software",
     "publisher": "Bethesda Softworks",
-    "series": "Doom",
+    "series": null,
     "genre": [
-      "First-Person Shooter",
-      "Action"
+      "Shooter",
+      "Action-Adventure"
     ],
     "tags": [
       "id Software",
@@ -315,12 +313,10 @@
     "year": 2022,
     "developer": "Techland",
     "publisher": "Techland",
-    "series": "Dying Light",
+    "series": null,
     "genre": [
-      "First-Person Action RPG",
-      "Open World",
-      "Parkour",
-      "Zombie"
+      "Action RPG",
+      "Open World"
     ],
     "tags": [
       "Techland",
@@ -398,8 +394,7 @@
     "publisher": "Myrkur Games",
     "series": null,
     "genre": [
-      "Action-Adventure",
-      "Fantasy"
+      "Action-Adventure"
     ],
     "tags": [
       "Myrkur Games",
@@ -804,7 +799,7 @@
     "year": 2021,
     "developer": "Eidos-Montréal",
     "publisher": "Square Enix",
-    "series": "Marvel's Guardians of the Galaxy",
+    "series": null,
     "genre": [
       "Action-Adventure",
       "Superhero"
@@ -884,7 +879,7 @@
     "year": 2023,
     "developer": "Avalanche Software",
     "publisher": "Warner Bros. Games",
-    "series": "Harry Potter",
+    "series": null,
     "genre": [
       "Action RPG",
       "Open World"
@@ -1140,10 +1135,9 @@
     "year": 2024,
     "developer": "MachineGames",
     "publisher": "Bethesda Softworks",
-    "series": "Indiana Jones",
+    "series": null,
     "genre": [
-      "Action-Adventure",
-      "First-Person Adventure"
+      "Action-Adventure"
     ],
     "tags": [
       "MachineGames",
@@ -1223,7 +1217,7 @@
     "year": 2021,
     "developer": "Insomniac Games",
     "publisher": "Sony Interactive Entertainment",
-    "series": "Ratchet & Clank",
+    "series": null,
     "genre": [
       "Action-Adventure",
       "Platformer"
@@ -1362,8 +1356,7 @@
     "publisher": "Capcom",
     "series": "Resident Evil",
     "genre": [
-      "Survival Horror",
-      "Action Horror"
+      "Survival Horror"
     ],
     "tags": [
       "Capcom",
@@ -1578,10 +1571,9 @@
     "year": 2024,
     "developer": "Bloober Team",
     "publisher": "Konami",
-    "series": "Silent Hill",
+    "series": null,
     "genre": [
-      "Survival Horror",
-      "Psychological Horror"
+      "Survival Horror"
     ],
     "tags": [
       "Bloober Team",
@@ -2049,10 +2041,9 @@
     "year": 2024,
     "developer": "Shift Up",
     "publisher": "Sony Interactive Entertainment",
-    "series": "Stellar Blade",
+    "series": null,
     "genre": [
-      "Action",
-      "Hack and Slash"
+      "Action-Adventure"
     ],
     "tags": [
       "Shift Up",
@@ -2306,7 +2297,7 @@
     "year": 2022,
     "developer": "Naughty Dog",
     "publisher": "Sony Interactive Entertainment",
-    "series": "Uncharted",
+    "series": null,
     "genre": [
       "Action-Adventure"
     ],
