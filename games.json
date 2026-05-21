@@ -5,7 +5,7 @@
     "year": 2023,
     "developer": "Remedy Entertainment",
     "publisher": "Epic Games Publishing",
-    "series": null,
+    "series": "Alan Wake",
     "genre": [
       "Survival Horror",
       "Action-Adventure"
@@ -67,6 +67,68 @@
       {
         "name": "9. Come Home — The Final Manuscript",
         "summary": "The campaign's climactic chapter. Alan and Saga, working in coordinated rewrites across the dimensional barrier, attempt to collapse the Dark Place's grip on Bright Falls before **Scratch** can complete his own takeover. The chapter is structured as a parallel-action finale, with Alan navigating the Dark Place's deepest layers and Saga defending the Cauldron Lake breach in the real world.\n\nThe chapter's mid-section is the campaign's most acclaimed boss confrontation: a multi-stage duel against Scratch that demands mastery of every system both characters have taught — Alan's narrative rewrites, Saga's case-board deductions, the campaign's combat fundamentals, and the Plot Board's environmental manipulation. The fight is staged across both dimensions simultaneously, with cuts between Alan and Saga's perspectives happening in mid-combat.\n\nThe chapter closes with the manuscript completed, Scratch defeated, and the campaign's final cliffhanger: **Alan does not return to the real world**. The barrier closes with him still inside the Dark Place, having sacrificed his own escape to ensure Saga's. The campaign's epilogue — staged in a half-lit hospital room — sets up *The Lake House* and *Night Springs* expansions while leaving the franchise's central question unresolved. The cycle is not yet over."
+      }
+    ]
+  },
+  {
+    "slug": "alan-wake-remastered",
+    "title": "Alan Wake Remastered",
+    "year": 2021,
+    "developer": "Remedy Entertainment",
+    "publisher": "Epic Games Publishing",
+    "series": "Alan Wake",
+    "genre": [
+      "Survival Horror",
+      "Action-Adventure"
+    ],
+    "tags": [
+      "Remedy Entertainment",
+      "Alan Wake",
+      "Bright Falls",
+      "Psychological Horror",
+      "Thriller"
+    ],
+    "ageRestricted": false,
+    "videos": [
+      {
+        "label": "Full Walkthrough",
+        "id": "hmAVmTQWLxo",
+        "duration": "10:45:25"
+      }
+    ],
+    "guide": "Alan Wake Remastered is Remedy Entertainment's 2021 rebuild of the 2010 psychological action-thriller, with fully reworked character models, lighting, and environmental detail running natively on modern hardware. Bestselling thriller novelist Alan Wake travels to the small Pacific Northwest town of Bright Falls for a quiet vacation with his wife Alice. When Alice vanishes into the depths of Cauldron Lake, Alan finds himself trapped inside the plot of a horror manuscript he has no memory of writing — and the words on the page keep coming true.\n\nThe combat is built entirely around light. The shadowy Taken are shielded by Darkness that must be burned away with a flashlight before conventional firearms can harm them, turning every encounter into a two-stage duel of beam and bullet. The remaster bundles the full main campaign across six episodes plus both expansion episodes, The Signal and The Writer.\n\nThis walkthrough captures the complete game as a single cinematic playthrough on PS5 Pro at 4K HDR 60FPS with PSSR upscaling, no commentary — every cutscene, every manuscript page, every Taken encounter preserved as an interactive thriller.",
+    "chapters": [
+      {
+        "name": "1. Episode 1 — Nightmare",
+        "summary": "The campaign opens with the bestselling novelist **Alan Wake** arriving in the small Pacific Northwest town of **Bright Falls** alongside his wife **Alice** for what is meant to be a relaxing vacation. Alan has not written in two years — a creative block following his last bestseller — and Alice has booked the trip in part to push him toward a return. The opening hour is structured as a slow-burn tonal piece: the diner sequence at Stucky's, the elderly local Cynthia Weaver's strange behavior, and the cabin at **Cauldron Lake** the couple have rented for the week.\n\nThe chapter's pivot is the **disappearance of Alice**. After a brief argument about Alan's writing, Alice falls into Cauldron Lake — a fall the chapter's geography suggests she could not have survived. Alan dives in after her, and the chapter cuts forward by a full week with Alan waking in a crashed car on a mountain road, missing the intervening seven days, with no memory of how he arrived there.\n\nThe chapter ends with Alan in possession of manuscript pages — written in his own hand — describing events he has not experienced yet, including his own death. The campaign's central conceit is fully introduced: Alan is somehow living inside the story he wrote during his missing week."
+      },
+      {
+        "name": "2. Episode 2 — Taken",
+        "summary": "The campaign's first sustained combat chapter. Alan, pursued by an entity called **the Dark Presence**, navigates the forests around Cauldron Lake at night. The chapter introduces the campaign's signature combat mechanic: **light versus dark**. The Taken — possessed humans serving the Dark Presence — must first have their dark armor burned away with a flashlight, then defeated with conventional weapons.\n\nThe chapter dwells on the campaign's atmospheric foundations: the Pacific Northwest forest, the constant rain, the omnipresent radio broadcasts of the local DJ Pat Maine, and the slowly emerging mythology around Cauldron Lake's pre-collapse history. The combat density is moderate; the chapter's focus is establishing the survival-horror tone.\n\nThe chapter ends with Alan reaching the **Bright Falls Sheriff's Office** and a tense first interrogation by **Sheriff Sarah Breaker**, who has noticed Alan's missing-week amnesia and is treating him as a person of interest in Alice's disappearance."
+      },
+      {
+        "name": "3. Episode 3 — Ransom",
+        "summary": "The campaign's mid-third-act spectacle chapter. Alan, working with his agent **Barry Wheeler** (recently arrived from New York), is contacted by an unknown caller who claims to have Alice alive and demands the unwritten manuscript pages in exchange for her safe return. The chapter is structured as a sustained pursuit across the Pacific Northwest infrastructure — a dam complex, a logging facility, and an old amusement park.\n\nThe chapter introduces **FBI Agent Robert Nightingale**, a paranoid investigator who has been tracking the Dark Presence's activities across the United States for years. Nightingale's introduction is staged with deliberate menace — he believes Alan is responsible for Alice's disappearance, and his pursuit of Alan becomes a parallel thread to the Dark Presence's.\n\nThe chapter ends with the ransom drop revealed as a Dark Presence trap, Alan narrowly escaping with Barry, and the campaign's central question about who is actually directing events — Alan, the Dark Presence, or someone outside both — fully posed."
+      },
+      {
+        "name": "4. Episode 4 — The Truth",
+        "summary": "A character-focused chapter that pivots the campaign's mythology into full reveal. Alan and Barry travel to the home of **Cynthia Weaver**, the elderly local from the opening chapter, who is revealed as a former lover of **Thomas Zane** — a poet who lived at Cauldron Lake in the 1970s and who, like Alan, was a published writer whose work began affecting reality. Zane's lover **Barbara Jagger** drowned in Cauldron Lake; Zane wrote her back; the Dark Presence assumed her form and has been hunting writers ever since.\n\nThe chapter dwells on the campaign's metafictional foundation. Alan is not the first author the Dark Presence has used; Zane was. Cauldron Lake itself is rendered as a place where writing can manifest as reality, with consequences that exceed any author's intent. The chapter ends with Cynthia transferring Zane's old talisman — a **light switch** — to Alan, with the implication that it can banish the Dark Presence at the cost of trapping its current author in the lake forever."
+      },
+      {
+        "name": "5. Episode 5 — The Clicker",
+        "summary": "The campaign's mid-act flashback chapter. Alan, separated from Barry during a Dark Presence assault on the **Anderson Brothers' farm**, descends into his own childhood memories through a sustained flashback sequence. The chapter is structured as a vertical exploration of Alan's psychology — a childhood farmhouse, his fear of the dark as a young boy, and his discovery as a child of the **Clicker**, a child's toy his mother gave him to ward off shadows.\n\nThe chapter's combat highlights include the campaign's most extensive use of environmental light sources — flares, generators, and the campaign's first sustained sequence with the Clicker as a usable weapon. The Clicker can dispel any Dark Presence corruption, including the most heavily armored Taken variants the chapter introduces.\n\nThe chapter ends with Alan emerging from the flashback in possession of the Clicker, Barry rescued from the Dark Presence's farm assault, and the campaign's final destination — the **Cauldron Lake cabin** where Alice fell — fully positioned."
+      },
+      {
+        "name": "6. Episode 6 — Departure",
+        "summary": "The campaign's climactic chapter. Alan and Barry descend toward Cauldron Lake itself, navigating Dark Presence forces of escalating density and the increasingly distorted landscape around the lake. The chapter is structured as a sustained vertical descent — Alan moves from the high mountain forest down through the lakeside town and finally onto Cauldron Lake's central island, where the entrance to the Dark Place opens beneath the water's surface.\n\nThe chapter's combat density is the campaign's heaviest. Alan exhausts every flare, every battery, and every shotgun shell the campaign has provisioned across six episodes. The chapter weaves combat with sustained narrative reveals — Alan reading manuscript pages he has not yet written, Alice's voice calling from the lake's depths, and the **Dark Presence** itself manifesting in increasingly explicit form.\n\nThe chapter ends with Alan **diving into Cauldron Lake** to enter the Dark Place voluntarily — a sacrifice the campaign frames as the only way to free Alice. The final manuscript page is read in voiceover: *\"It's not a lake. It's an ocean.\"* The campaign's ending sets up the entire Remedy Connected Universe with one of its most iconic closing lines."
+      },
+      {
+        "name": "7. DLC Episode 1 — The Signal",
+        "summary": "The first post-launch expansion, set inside the **Dark Place** itself. Alan, trapped beneath Cauldron Lake, navigates a Dark Presence-corrupted version of Bright Falls' geography — the diner is now flooded, the streets are nightmare-twisted, and the only points of light are words physically projected onto the world by an unseen narrator. The chapter introduces the campaign's most experimental mechanic: **words can be set on fire to physically materialize the objects they describe**.\n\nThe chapter dwells on Alan's deteriorating mental state. He hallucinates conversations with Barry (still in the real world), with Alice (somewhere in the Dark Place ahead of him), and with **Thomas Zane** (whose voice has begun guiding him through the lake's psychic geography). The chapter's central mechanic — the word-projection puzzle — has become one of the franchise's most acclaimed design experiments.\n\nThe chapter ends with Alan locating Zane's recorded message, the campaign's central thread of *Alan Wake II*'s mythology fully seeded, and Alan's continuing journey deeper into the Dark Place."
+      },
+      {
+        "name": "8. DLC Episode 2 — The Writer",
+        "summary": "The expansion's climactic chapter. **Thomas Zane** himself appears to Alan as a manifestation guiding him toward an escape route. The chapter is structured as a sustained ascent through the Dark Place's deepest layers — the **lighthouse** that has appeared in Cauldron Lake's center across the entire main campaign — with Zane's voice narrating Alan's path in voiceover.\n\nThe chapter's central reveal is that Zane himself is trapped inside the Dark Place, and that his rescue of Alan from the manifest Dark Presence is an act of authorial succession: Zane is writing Alan back into the real world, sacrificing his own consciousness in the process. The chapter ends with Alan returning to the surface of Cauldron Lake — and the campaign's most controversial single ending shot, in which the camera lingers on Alan's typewriter and the manuscript page that reads *\"It is not a lake. It is an ocean.\"* The campaign formally concludes with the same line that opened the DLC's expansions, setting up the thirteen-year wait for *Alan Wake II*."
       }
     ]
   },
