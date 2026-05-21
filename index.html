@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gaming Cinema — PS5 Pro 4K Cinematic Walkthroughs</title>
-  <meta name="description" content="Premium PS5 Pro 4K HDR 60FPS cinematic walkthroughs with PSSR upscaling. No commentary. Resident Evil, God of War, Ghost of Yōtei, Stellar Blade, Indiana Jones, Alan Wake 2, The Last of Us, Horizon, and more.">
+  <title>Gaming Cinema &mdash; PS5 Pro 4K Cinematic Walkthroughs</title>
+  <meta name="description" content="Premium PS5 Pro 4K HDR 60FPS cinematic walkthroughs with PSSR upscaling. No commentary. Resident Evil, God of War, Ghost of Y&#333;tei, Stellar Blade, Indiana Jones, Alan Wake 2, The Last of Us, Horizon, and more.">
   <meta name="google-site-verification" content="e046sHJ-h1sfjQRwp55bHoKrUVUQG-aM37po9Vsa1Z4" />
-  <meta property="og:title" content="Gaming Cinema — PS5 Pro 4K Cinematic Walkthroughs">
+  <meta property="og:title" content="Gaming Cinema &mdash; PS5 Pro 4K Cinematic Walkthroughs">
   <meta property="og:description" content="No-commentary PS5 Pro 4K HDR cinematic walkthroughs with PSSR upscaling. Full game coverage across 30+ AAA titles.">
   <meta property="og:url" content="https://gamingcinema.github.io/">
   <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
     <div class="header-inner">
       <div class="brand">
         <a href="index.html">Gaming Cinema</a>
-        <span class="tagline">PS5 Pro · 4K HDR · PSSR · No Commentary</span>
+        <span class="tagline">PS5 Pro &middot; 4K HDR &middot; PSSR &middot; No Commentary</span>
       </div>
       <nav class="primary">
         <a href="#games">Walkthroughs</a>
         <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
       </nav>
-      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">☰</button>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">&#9776;</button>
     </div>
   </header>
 
@@ -39,17 +39,17 @@
         </div>
 
         <div class="sidebar-section collapsible" data-section="genre">
-          <h4 class="section-toggle"><span>By Genre</span><span class="chevron">▾</span></h4>
+          <h4 class="section-toggle"><span>By Genre</span><span class="chevron">&#9662;</span></h4>
           <ul class="sidebar-list" id="genreList"></ul>
         </div>
 
         <div class="sidebar-section collapsible" data-section="series">
-          <h4 class="section-toggle"><span>By Series</span><span class="chevron">▾</span></h4>
+          <h4 class="section-toggle"><span>By Series</span><span class="chevron">&#9662;</span></h4>
           <ul class="sidebar-list" id="seriesList"></ul>
         </div>
 
         <div class="sidebar-section collapsible" data-section="developer">
-          <h4 class="section-toggle"><span>By Developer</span><span class="chevron">▾</span></h4>
+          <h4 class="section-toggle"><span>By Developer</span><span class="chevron">&#9662;</span></h4>
           <ul class="sidebar-list" id="devList"></ul>
         </div>
       </div>
@@ -58,12 +58,12 @@
     <main>
       <section class="hero">
         <h1>PS5 Pro 4K Cinematic Walkthroughs</h1>
-        <p class="lead">No-commentary full-game walkthroughs captured natively on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling. Every cutscene, every boss, every chapter — preserved as an interactive movie.</p>
+        <p class="lead">No-commentary full-game walkthroughs captured natively on PlayStation 5 Pro at 4K HDR 60FPS with PSSR upscaling. Every cutscene, every boss, every chapter &mdash; preserved as an interactive movie.</p>
       </section>
 
       <section id="games">
         <div class="search-bar">
-          <input type="search" id="searchInput" placeholder="Search game name, developer, character…" autocomplete="off">
+          <input type="search" id="searchInput" placeholder="Search game name, developer, character&hellip;" autocomplete="off">
           <span class="results-count" id="resultsCount"></span>
         </div>
 
@@ -78,7 +78,7 @@
   </div>
 
   <footer class="site-footer">
-    <p>© 2026 Gaming Cinema · No-commentary PS5 Pro 4K cinematic walkthroughs · <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
+    <p>&copy; 2026 Gaming Cinema &middot; No-commentary PS5 Pro 4K cinematic walkthroughs &middot; <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
   </footer>
 
   <script>
@@ -201,9 +201,13 @@
       // Active filter banner
       if (activeFilter.type !== 'all') {
         const labelMap = { genre: 'Genre', series: 'Series', developer: 'Developer', newest: 'Sorted by' };
+        const playlistBtn = activeFilter.type === 'series'
+          ? `<a class="playlist-btn" href="series.html?series=${encodeURIComponent(activeFilter.value)}">&#9654; Watch as playlist</a>`
+          : '';
         activeBanner.innerHTML = `
           <span class="filter-label">${labelMap[activeFilter.type]}:</span>
           <span class="filter-value">${activeFilter.value === 'newest' ? 'Newest first' : activeFilter.value}</span>
+          ${playlistBtn}
           <a href="#" id="clearFilter">Clear</a>`;
         activeBanner.style.display = 'flex';
         document.getElementById('clearFilter').addEventListener('click', e => {
@@ -234,7 +238,7 @@
               <div class="thumb" style="background-image:url('${thumb}')">${ageBadge}${chapterBadge}</div>
               <div class="meta">
                 <h3>${g.title}</h3>
-                <div class="submeta">${g.developer} · ${g.year} · ${partsLabel}</div>
+                <div class="submeta">${g.developer} &middot; ${g.year} &middot; ${partsLabel}</div>
                 <div class="tags">${tags}</div>
               </div>
             </a>
@@ -265,7 +269,7 @@
         document.getElementById('sidebar').classList.toggle('open');
       });
 
-      // Collapsible sidebar sections — persist state in localStorage
+      // Collapsible sidebar sections &mdash; persist state in localStorage
       document.querySelectorAll('.sidebar-section.collapsible').forEach(sec => {
         const key = 'gc_section_' + sec.dataset.section;
         // Restore previous state (default: open)

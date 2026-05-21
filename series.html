@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Series Playlist &mdash; Gaming Cinema</title>
+  <meta name="description" content="Watch full game-series walkthroughs back-to-back &mdash; PS5 Pro 4K HDR cinematic playlists from Gaming Cinema.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Series Playlist &mdash; Gaming Cinema">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html">Gaming Cinema</a>
+        <span class="tagline">PS5 Pro &middot; 4K HDR &middot; PSSR &middot; No Commentary</span>
+      </div>
+      <nav class="primary">
+        <a href="index.html#games">Walkthroughs</a>
+        <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="series-page">
+    <a href="index.html" class="back-link">&larr; All walkthroughs</a>
+    <div id="seriesContent"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Gaming Cinema &middot; No-commentary PS5 Pro 4K cinematic walkthroughs &middot; <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // Narrative / release order per series. New games not listed fall back to year sort.
+    var SERIES_ORDER = {
+      'Alan Wake': ['alan-wake-remastered', 'alan-wake-2'],
+      'Ghost': ['ghost-of-tsushima', 'ghost-of-yotei'],
+      'God of War': ['god-of-war-2018', 'god-of-war-ragnarok'],
+      'Horizon': ['horizon-zero-dawn-remastered', 'horizon-forbidden-west'],
+      'Resident Evil': ['resident-evil-2-remake', 'resident-evil-3-remake', 'resident-evil-4-remake', 'resident-evil-requiem'],
+      "Marvel's Spider-Man": ['spider-man-remastered', 'spider-man-miles-morales', 'spider-man-2'],
+      'Star Wars Jedi': ['star-wars-jedi-fallen-order', 'star-wars-jedi-survivor'],
+      'The Last of Us': ['the-last-of-us-part-1-remastered', 'the-last-of-us-part-2-remaster']
+    };
+
+    var params = new URLSearchParams(location.search);
+    var seriesName = params.get('series') || '';
+    var startParam = params.get('i');
+
+    var queue = [];
+    var currentIndex = 0;
+    var player = null;
+    var apiReady = false;
+    var autoplay = localStorage.getItem('gc_series_autoplay') !== '0';
+
+    var elContent = document.getElementById('seriesContent');
+
+    function secs(d) {
+      if (!d) return 0;
+      var p = String(d).split(':').map(Number);
+      if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2];
+      if (p.length === 2) return p[0] * 60 + p[1];
+      return p[0] || 0;
+    }
+    function fmtTotal(t) {
+      var h = Math.floor(t / 3600), m = Math.round((t % 3600) / 60);
+      if (h && m) return h + ' hr ' + m + ' min';
+      if (h) return h + ' hr';
+      return m + ' min';
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function partLabel(it) {
+      return it.partCount > 1 ? 'Part ' + it.partIndex + ' / ' + it.partCount : 'Full walkthrough';
+    }
+
+    function buildQueue(games) {
+      var inSeries = games.filter(function (g) { return g.series === seriesName; });
+      var order = SERIES_ORDER[seriesName];
+      inSeries.sort(function (a, b) {
+        if (order) {
+          var ia = order.indexOf(a.slug), ib = order.indexOf(b.slug);
+          if (ia === -1) ia = 999;
+          if (ib === -1) ib = 999;
+          if (ia !== ib) return ia - ib;
+        }
+        return (a.year - b.year) || a.title.localeCompare(b.title);
+      });
+      var q = [];
+      inSeries.forEach(function (g) {
+        (g.videos || []).forEach(function (v, i) {
+          q.push({
+            gameSlug: g.slug,
+            gameTitle: g.title,
+            year: g.year,
+            videoId: v.id,
+            duration: v.duration || '',
+            ageRestricted: !!g.ageRestricted,
+            partIndex: i + 1,
+            partCount: (g.videos || []).length
+          });
+        });
+      });
+      return q;
+    }
+
+    function renderChooser(games) {
+      var set = {};
+      games.forEach(function (g) { if (g.series) set[g.series] = (set[g.series] || 0) + 1; });
+      var names = Object.keys(set).filter(function (n) { return set[n] >= 2; }).sort();
+      var items = names.map(function (n) {
+        return '<a class="chooser-item" href="series.html?series=' + encodeURIComponent(n) + '">'
+          + '<strong>' + esc(n) + '</strong><span>' + set[n] + ' games</span></a>';
+      }).join('');
+      elContent.innerHTML =
+        '<div class="series-head"><h1>Series Playlists</h1>'
+        + '<p class="series-meta">Pick a series to watch every walkthrough back-to-back.</p></div>'
+        + '<div class="series-chooser">' + (items || '<p>No series available.</p>') + '</div>';
+    }
+
+    function renderStage() {
+      var totalSecs = queue.reduce(function (s, it) { return s + secs(it.duration); }, 0);
+      var gameSet = {};
+      queue.forEach(function (it) { gameSet[it.gameSlug] = 1; });
+      var hasAge = queue.some(function (it) { return it.ageRestricted; });
+
+      var notice = hasAge
+        ? '<div class="series-notice">Some chapters in this series are age-restricted by YouTube and cannot play embedded &mdash; they open on YouTube in one click. Everything else plays here automatically.</div>'
+        : '';
+
+      elContent.innerHTML =
+        '<div class="series-head">'
+          + '<h1>' + esc(seriesName) + ' &mdash; Full Series</h1>'
+          + '<p class="series-meta">' + Object.keys(gameSet).length + ' games &middot; '
+            + queue.length + ' videos &middot; ' + fmtTotal(totalSecs) + ' total runtime</p>'
+        + '</div>'
+        + notice
+        + '<div class="resume-note" id="resumeNote" style="display:none"></div>'
+        + '<div class="series-stage">'
+          + '<div class="player-col">'
+            + '<div class="player-wrap" id="playerWrap">'
+              + '<div id="player"></div>'
+              + '<div class="player-overlay" id="overlay"></div>'
+            + '</div>'
+            + '<div class="now-playing" id="nowPlaying"></div>'
+          + '</div>'
+          + '<div class="queue-col">'
+            + '<div class="queue-head"><span>Playlist (' + queue.length + ')</span>'
+              + '<label class="autoplay-toggle"><input type="checkbox" id="autoplayChk"'
+              + (autoplay ? ' checked' : '') + '> Autoplay</label></div>'
+            + '<div class="queue-list" id="queueList"></div>'
+          + '</div>'
+        + '</div>';
+
+      renderQueue();
+
+      document.getElementById('queueList').addEventListener('click', function (e) {
+        var btn = e.target.closest('.queue-item');
+        if (btn) selectIndex(Number(btn.dataset.idx), true);
+      });
+      document.getElementById('autoplayChk').addEventListener('change', function (e) {
+        autoplay = e.target.checked;
+        localStorage.setItem('gc_series_autoplay', autoplay ? '1' : '0');
+      });
+    }
+
+    function renderQueue() {
+      document.getElementById('queueList').innerHTML = queue.map(function (it, i) {
+        var cur = i === currentIndex;
+        return '<button class="queue-item' + (cur ? ' current' : '') + '" data-idx="' + i + '">'
+          + '<span class="q-thumb" style="background-image:url(\'https://i.ytimg.com/vi/'
+            + it.videoId + '/mqdefault.jpg\')"><span class="q-num">' + (i + 1) + '</span></span>'
+          + '<span class="q-info"><span class="q-title">' + esc(it.gameTitle) + '</span>'
+          + '<span class="q-sub">' + partLabel(it)
+            + (it.duration ? ' &middot; ' + esc(it.duration) : '')
+            + (it.ageRestricted ? ' <span class="q-age">18+</span>' : '') + '</span></span>'
+          + '<span class="q-status">' + (cur ? '&#9654;' : '') + '</span>'
+          + '</button>';
+      }).join('');
+    }
+
+    function renderNowPlaying() {
+      var it = queue[currentIndex];
+      var np = document.getElementById('nowPlaying');
+      np.innerHTML =
+        '<div class="np-info"><span class="np-label">Now playing &mdash; ' + (currentIndex + 1)
+          + ' of ' + queue.length + '</span>'
+        + '<span class="np-title">' + esc(it.gameTitle) + '</span>'
+        + '<span class="np-sub">' + it.year + ' &middot; ' + partLabel(it)
+          + (it.duration ? ' &middot; ' + esc(it.duration) : '') + '</span></div>'
+        + '<div class="np-controls">'
+        + '<button class="np-btn" id="prevBtn"' + (currentIndex === 0 ? ' disabled' : '') + '>&larr; Previous</button>'
+        + '<button class="np-btn primary" id="nextBtn"' + (currentIndex === queue.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>'
+        + '</div>';
+      document.getElementById('prevBtn').addEventListener('click', function () {
+        if (currentIndex > 0) selectIndex(currentIndex - 1, true);
+      });
+      document.getElementById('nextBtn').addEventListener('click', function () {
+        if (currentIndex < queue.length - 1) selectIndex(currentIndex + 1, true);
+      });
+    }
+
+    function highlightQueue() {
+      var items = document.querySelectorAll('.queue-item');
+      items.forEach(function (el, i) {
+        var cur = i === currentIndex;
+        el.classList.toggle('current', cur);
+        el.querySelector('.q-status').innerHTML = cur ? '&#9654;' : '';
+        if (cur) el.scrollIntoView({ block: 'nearest' });
+      });
+    }
+
+    function savePos() {
+      try {
+        var m = JSON.parse(localStorage.getItem('gc_series_pos') || '{}');
+        m[seriesName] = currentIndex;
+        localStorage.setItem('gc_series_pos', JSON.stringify(m));
+      } catch (e) {}
+    }
+
+    function showOverlay(html) {
+      document.getElementById('overlay').innerHTML = html;
+      document.getElementById('playerWrap').classList.add('overlayed');
+    }
+    function hideOverlay() {
+      document.getElementById('playerWrap').classList.remove('overlayed');
+      document.getElementById('overlay').innerHTML = '';
+    }
+
+    function showAgeGate(it) {
+      showOverlay(
+        '<div class="overlay-card"><span class="overlay-badge">18+</span>'
+        + '<h3>' + esc(it.gameTitle) + '</h3>'
+        + '<p>YouTube age-restricts this walkthrough, so it cannot play embedded here. '
+        + 'Open it on YouTube &mdash; it is the same 4K PS5 Pro capture.</p>'
+        + '<div class="overlay-actions">'
+        + '<a class="overlay-btn primary" href="https://www.youtube.com/watch?v=' + it.videoId
+          + '" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>'
+        + (currentIndex < queue.length - 1
+            ? '<button class="overlay-btn" id="skipBtn">Skip to next part &rarr;</button>' : '')
+        + '</div></div>'
+      );
+      var sk = document.getElementById('skipBtn');
+      if (sk) sk.addEventListener('click', function () { selectIndex(currentIndex + 1, true); });
+    }
+
+    function showComplete() {
+      showOverlay(
+        '<div class="overlay-card"><h3>Series complete</h3>'
+        + '<p>That is every walkthrough in the ' + esc(seriesName) + ' series.</p>'
+        + '<div class="overlay-actions">'
+        + '<button class="overlay-btn primary" id="restartBtn">&#9654; Watch from the start</button>'
+        + '<a class="overlay-btn" href="index.html">All walkthroughs</a>'
+        + '</div></div>'
+      );
+      var rb = document.getElementById('restartBtn');
+      if (rb) rb.addEventListener('click', function () { selectIndex(0, true); });
+    }
+
+    function showError(it) {
+      showOverlay(
+        '<div class="overlay-card"><h3>Could not load this video</h3>'
+        + '<p>This part would not play in the embedded player. You can watch it on YouTube.</p>'
+        + '<div class="overlay-actions">'
+        + '<a class="overlay-btn primary" href="https://www.youtube.com/watch?v=' + it.videoId
+          + '" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>'
+        + (currentIndex < queue.length - 1
+            ? '<button class="overlay-btn" id="skipBtn2">Skip to next part &rarr;</button>' : '')
+        + '</div></div>'
+      );
+      var sk = document.getElementById('skipBtn2');
+      if (sk) sk.addEventListener('click', function () { selectIndex(currentIndex + 1, true); });
+    }
+
+    function selectIndex(i, play) {
+      if (i < 0 || i >= queue.length) return;
+      currentIndex = i;
+      savePos();
+      renderNowPlaying();
+      highlightQueue();
+      var it = queue[i];
+      if (it.ageRestricted) {
+        if (player && player.stopVideo) { try { player.stopVideo(); } catch (e) {} }
+        showAgeGate(it);
+      } else {
+        hideOverlay();
+        if (apiReady && player) {
+          if (play) player.loadVideoById(it.videoId);
+          else player.cueVideoById(it.videoId);
+        }
+      }
+    }
+
+    function nextVideo() {
+      if (currentIndex < queue.length - 1) selectIndex(currentIndex + 1, true);
+      else showComplete();
+    }
+
+    window.onYouTubeIframeAPIReady = function () {
+      var it = queue[currentIndex];
+      player = new YT.Player('player', {
+        width: '100%',
+        height: '100%',
+        videoId: it.videoId,
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+        events: {
+          'onReady': function () {
+            apiReady = true;
+            var c = queue[currentIndex];
+            if (c.ageRestricted) {
+              try { player.stopVideo(); } catch (e) {}
+            } else if (player.getVideoData && player.getVideoData().video_id !== c.videoId) {
+              player.cueVideoById(c.videoId);
+            }
+          },
+          'onStateChange': function (e) {
+            if (e.data === YT.PlayerState.ENDED && autoplay) nextVideo();
+          },
+          'onError': function () {
+            var cur = queue[currentIndex];
+            if (!cur.ageRestricted) showError(cur);
+          }
+        }
+      });
+    };
+
+    function init() {
+      fetch('games.json')
+        .then(function (r) { return r.json(); })
+        .then(function (games) {
+          if (!seriesName) { renderChooser(games); return; }
+          queue = buildQueue(games);
+          if (!queue.length) { renderChooser(games); return; }
+
+          document.title = seriesName + ' Playlist \u2014 Gaming Cinema';
+
+          var start = 0;
+          if (startParam != null && !isNaN(Number(startParam))) {
+            start = Math.max(0, Math.min(queue.length - 1, Number(startParam)));
+          } else {
+            try {
+              var m = JSON.parse(localStorage.getItem('gc_series_pos') || '{}');
+              if (m[seriesName] != null) {
+                start = Math.max(0, Math.min(queue.length - 1, m[seriesName]));
+              }
+            } catch (e) {}
+          }
+          currentIndex = start;
+
+          renderStage();
+          renderNowPlaying();
+
+          if (start > 0) {
+            var rn = document.getElementById('resumeNote');
+            rn.style.display = 'flex';
+            rn.innerHTML = 'Resumed at video ' + (start + 1) + ' of ' + queue.length
+              + '. <a href="#" id="startOver">Start from the beginning</a>';
+            document.getElementById('startOver').addEventListener('click', function (ev) {
+              ev.preventDefault();
+              rn.style.display = 'none';
+              selectIndex(0, false);
+            });
+          }
+
+          if (queue[currentIndex].ageRestricted) showAgeGate(queue[currentIndex]);
+
+          var tag = document.createElement('script');
+          tag.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(tag);
+        })
+        .catch(function (err) {
+          elContent.innerHTML = '<div class="series-notice">Could not load the playlist. '
+            + 'Please refresh the page.</div>';
+          console.error(err);
+        });
+    }
+
+    init();
+  })();
+  </script>
+</body>
+</html>
