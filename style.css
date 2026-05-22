@@ -1,4 +1,4 @@
-/* Gaming Cinema — shared stylesheet v2 */
+/* Gaming Cinema - shared stylesheet v2 */
 :root {
   --accent: #8B0000;
   --accent-light: #b71c1c;
@@ -843,4 +843,188 @@ footer.site-footer a:hover { text-decoration: underline; }
 @media (max-width: 900px) {
   .series-stage { grid-template-columns: 1fr; }
   .queue-list { max-height: 420px; }
+}
+
+/* ===== Live trailer channel (live.html) ===== */
+.live-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+.live-head { margin: 8px 0 18px; }
+.live-head h1 {
+  color: var(--accent);
+  font-size: 1.8em;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.live-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  animation: livepulse 1.8s infinite;
+}
+@keyframes livepulse {
+  0%   { box-shadow: 0 0 0 0 rgba(183,28,28,0.55); }
+  70%  { box-shadow: 0 0 0 12px rgba(183,28,28,0); }
+  100% { box-shadow: 0 0 0 0 rgba(183,28,28,0); }
+}
+
+.live-stage { margin-bottom: 30px; }
+
+.live-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.74em;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  animation: blink 1.4s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+.live-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 30px 16px 12px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.82));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  pointer-events: none;
+}
+.cap-game { font-weight: 700; font-size: 1.02em; }
+.cap-sub { font-size: 0.8em; color: #d6d6d6; }
+
+.segment-bar {
+  height: 5px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.segment-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 1s linear;
+}
+
+.live-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  margin-top: 12px;
+}
+.live-np { display: flex; flex-direction: column; min-width: 0; }
+.np-now {
+  font-size: 0.68em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.np-game { font-size: 0.95em; font-weight: 700; color: var(--dark); }
+.seg-time {
+  font-size: 0.85em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.live-actions { display: flex; gap: 8px; margin-left: auto; }
+
+.upnext h2 {
+  font-size: 1.2em;
+  color: var(--dark);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+  margin: 0 0 16px;
+}
+.upnext-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.upnext-item {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 11px;
+}
+.un-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 92px;
+  aspect-ratio: 16 / 9;
+  background: #000 center/cover no-repeat;
+  border-radius: 5px;
+}
+.un-pos {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 0.66em;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.un-info { display: flex; flex-direction: column; min-width: 0; }
+.un-title {
+  font-size: 0.86em;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.un-sub { font-size: 0.74em; color: var(--muted); margin-top: 2px; }
+
+/* Live nav link */
+.nav-live::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .upnext-list { grid-template-columns: 1fr; }
 }

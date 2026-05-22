@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live &mdash; Gaming Cinema</title>
+  <meta name="description" content="Gaming Cinema Live &mdash; a non-stop trailer channel cycling through every PS5 Pro 4K walkthrough, five minutes at a time.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Gaming Cinema Live">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html">Gaming Cinema</a>
+        <span class="tagline">PS5 Pro &middot; 4K HDR &middot; PSSR &middot; No Commentary</span>
+      </div>
+      <nav class="primary">
+        <a href="index.html#games">Walkthroughs</a>
+        <a href="live.html" class="nav-live">Live</a>
+        <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="live-page">
+    <a href="index.html" class="back-link">&larr; All walkthroughs</a>
+    <div id="liveContent"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Gaming Cinema &middot; No-commentary PS5 Pro 4K cinematic walkthroughs &middot; <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var SEGMENT_MS = 5 * 60 * 1000;
+    var SHOW_UPNEXT = 6;
+    var SCHEDULE_AHEAD = 8;
+
+    var pool = [];
+    var bag = [];
+    var schedule = [];
+    var current = null;
+    var player = null;
+    var apiReady = false;
+    var live = false;
+    var muted = localStorage.getItem('gc_live_muted') === '1';
+    var segTimeout = null, tickInt = null, segStart = 0;
+
+    var elContent = document.getElementById('liveContent');
+
+    function secsFromDur(d) {
+      if (!d) return 0;
+      var p = String(d).split(':').map(Number);
+      if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2];
+      if (p.length === 2) return p[0] * 60 + p[1];
+      return p[0] || 0;
+    }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function fmtClock(s) {
+      s = Math.max(0, Math.floor(s));
+      var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
+      return h > 0 ? h + ':' + pad(m) + ':' + pad(x) : m + ':' + pad(x);
+    }
+    function fmtMS(s) {
+      s = Math.max(0, Math.floor(s));
+      return Math.floor(s / 60) + ':' + pad(s % 60);
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function shuffle(a) {
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+      }
+      return a;
+    }
+    function partTxt(e) {
+      return e.partCount > 1 ? 'Part ' + e.partIndex + ' / ' + e.partCount : 'Full walkthrough';
+    }
+
+    function buildPool(games) {
+      var p = [];
+      games.forEach(function (g) {
+        if (g.ageRestricted) return;
+        (g.videos || []).forEach(function (v, i) {
+          p.push({
+            videoId: v.id,
+            gameTitle: g.title,
+            gameSlug: g.slug,
+            year: g.year,
+            partIndex: i + 1,
+            partCount: (g.videos || []).length,
+            durationSec: secsFromDur(v.duration)
+          });
+        });
+      });
+      return p;
+    }
+
+    function draw() {
+      if (bag.length === 0) bag = shuffle(pool.slice());
+      return bag.pop();
+    }
+    function makePick() {
+      var e = draw();
+      var maxStart = Math.max(0, e.durationSec - 320);
+      var minStart = maxStart > 200 ? 90 : 0;
+      var span = Math.max(1, maxStart - minStart);
+      var start = minStart + Math.floor(Math.random() * span);
+      return { e: e, start: start };
+    }
+    function fillSchedule() {
+      while (schedule.length < SCHEDULE_AHEAD) schedule.push(makePick());
+    }
+
+    function renderStage() {
+      elContent.innerHTML =
+        '<div class="live-head">'
+          + '<h1><span class="live-dot"></span> Gaming Cinema Live</h1>'
+          + '<p class="series-meta">A non-stop trailer channel &mdash; every PS5 Pro 4K walkthrough, '
+          + 'five minutes at a time, from a random moment. ' + pool.length + ' clips in rotation.</p>'
+        + '</div>'
+        + '<div class="live-stage">'
+          + '<div class="player-wrap overlayed" id="playerWrap">'
+            + '<div id="player"></div>'
+            + '<div class="live-badge"><span class="bdot"></span> LIVE</div>'
+            + '<div class="live-caption" id="caption"></div>'
+            + '<div class="player-overlay" id="overlay">'
+              + '<div class="overlay-card">'
+                + '<h3>Gaming Cinema Live</h3>'
+                + '<p>A continuous trailer reel of every walkthrough on the channel. '
+                + 'Press play and let it run &mdash; a fresh clip every five minutes.</p>'
+                + '<div class="overlay-actions">'
+                  + '<button class="overlay-btn primary" id="goLiveBtn" disabled>Loading&hellip;</button>'
+                + '</div>'
+              + '</div>'
+            + '</div>'
+          + '</div>'
+          + '<div class="segment-bar"><div class="segment-fill" id="segFill"></div></div>'
+          + '<div class="live-controls">'
+            + '<div class="live-np" id="liveNp"></div>'
+            + '<span class="seg-time" id="segTime">0:00 / 5:00</span>'
+            + '<div class="live-actions">'
+              + '<button class="np-btn" id="muteBtn">' + (muted ? 'Unmute' : 'Mute') + '</button>'
+              + '<button class="np-btn primary" id="skipBtn">Skip &#9197;</button>'
+            + '</div>'
+          + '</div>'
+        + '</div>'
+        + '<div class="upnext"><h2>Up Next</h2><div class="upnext-list" id="upnextList"></div></div>';
+
+      document.getElementById('goLiveBtn').addEventListener('click', startLive);
+      document.getElementById('skipBtn').addEventListener('click', function () { if (live) advance(); });
+      document.getElementById('muteBtn').addEventListener('click', toggleMute);
+    }
+
+    function renderUpNext() {
+      var list = document.getElementById('upnextList');
+      if (!list) return;
+      list.innerHTML = schedule.slice(0, SHOW_UPNEXT).map(function (p, i) {
+        var e = p.e;
+        return '<div class="upnext-item">'
+          + '<span class="un-thumb" style="background-image:url(\'https://i.ytimg.com/vi/'
+            + e.videoId + '/mqdefault.jpg\')"><span class="un-pos">' + (i + 1) + '</span></span>'
+          + '<span class="un-info"><span class="un-title">' + esc(e.gameTitle) + '</span>'
+          + '<span class="un-sub">' + partTxt(e) + ' &middot; from ' + fmtClock(p.start) + '</span>'
+          + '</span></div>';
+      }).join('');
+    }
+
+    function renderCaption() {
+      var c = document.getElementById('caption');
+      if (!c || !current) return;
+      c.innerHTML = '<span class="cap-game">' + esc(current.e.gameTitle) + '</span>'
+        + '<span class="cap-sub">' + partTxt(current.e) + ' &middot; live trailer</span>';
+    }
+
+    function renderNp() {
+      var n = document.getElementById('liveNp');
+      if (!n || !current) return;
+      n.innerHTML = '<span class="np-now">Now playing</span>'
+        + '<span class="np-game">' + esc(current.e.gameTitle) + ' &middot; ' + partTxt(current.e) + '</span>';
+    }
+
+    function tick() {
+      var el = Date.now() - segStart;
+      var pct = Math.min(100, el / SEGMENT_MS * 100);
+      var sf = document.getElementById('segFill');
+      if (sf) sf.style.width = pct.toFixed(2) + '%';
+      var st = document.getElementById('segTime');
+      if (st) st.textContent = fmtMS(Math.min(SEGMENT_MS, el) / 1000) + ' / 5:00';
+    }
+
+    function toggleMute() {
+      muted = !muted;
+      localStorage.setItem('gc_live_muted', muted ? '1' : '0');
+      if (player) { if (muted) player.mute(); else player.unMute(); }
+      var b = document.getElementById('muteBtn');
+      if (b) b.textContent = muted ? 'Unmute' : 'Mute';
+    }
+
+    function beginSegment() {
+      segStart = Date.now();
+      if (segTimeout) clearTimeout(segTimeout);
+      if (tickInt) clearInterval(tickInt);
+      segTimeout = setTimeout(advance, SEGMENT_MS);
+      tickInt = setInterval(tick, 1000);
+      renderCaption();
+      renderNp();
+      renderUpNext();
+      tick();
+      if (apiReady && player) {
+        player.loadVideoById({ videoId: current.e.videoId, startSeconds: current.start });
+        if (muted) player.mute(); else player.unMute();
+      }
+    }
+
+    function advance() {
+      current = schedule.shift();
+      fillSchedule();
+      beginSegment();
+    }
+
+    function startLive() {
+      if (live) return;
+      live = true;
+      var pw = document.getElementById('playerWrap');
+      if (pw) pw.classList.remove('overlayed');
+      advance();
+    }
+
+    window.onYouTubeIframeAPIReady = function () {
+      player = new YT.Player('player', {
+        width: '100%',
+        height: '100%',
+        videoId: schedule[0].e.videoId,
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1, controls: 1 },
+        events: {
+          'onReady': function () {
+            apiReady = true;
+            if (muted) player.mute();
+            var b = document.getElementById('goLiveBtn');
+            if (b) { b.disabled = false; b.innerHTML = '&#9654; Go Live'; }
+            if (live && current) {
+              player.loadVideoById({ videoId: current.e.videoId, startSeconds: current.start });
+              if (muted) player.mute(); else player.unMute();
+            }
+          },
+          'onError': function () {
+            if (live) advance();
+          },
+          'onStateChange': function () {}
+        }
+      });
+    };
+
+    function init() {
+      fetch('games.json')
+        .then(function (r) { return r.json(); })
+        .then(function (games) {
+          pool = buildPool(games);
+          if (!pool.length) {
+            elContent.innerHTML = '<div class="series-notice">No playable videos are available right now.</div>';
+            return;
+          }
+          fillSchedule();
+          renderStage();
+          renderUpNext();
+          var tag = document.createElement('script');
+          tag.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(tag);
+        })
+        .catch(function (err) {
+          elContent.innerHTML = '<div class="series-notice">Could not load the live channel. '
+            + 'Please refresh the page.</div>';
+          console.error(err);
+        });
+    }
+
+    init();
+  })();
+  </script>
+</body>
+</html>
