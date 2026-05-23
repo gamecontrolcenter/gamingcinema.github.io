@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinema Mode &mdash; Gaming Cinema</title>
-  <meta name="description" content="Gaming Cinema - Cinema Mode. Every PS5 Pro 4K walkthrough on a continuous ten-minute rotation. No ads, no settings.">
+  <meta name="description" content="Gaming Cinema - Cinema Mode. Every PS5 Pro 4K walkthrough played in full, start to finish, back to back.">
   <meta name="robots" content="noindex">
   <meta property="og:title" content="Gaming Cinema - Cinema Mode">
   <meta property="og:type" content="website">
@@ -43,34 +43,15 @@
   (function () {
     'use strict';
 
-    var SEGMENT_MS = 10 * 60 * 1000;
     var SHOW_UPNEXT = 6;
     var SCHEDULE_AHEAD = 8;
 
     var pool = [], bag = [], schedule = [], current = null;
     var player = null, apiReady = false, live = false;
     var muted = localStorage.getItem('gc_live_muted') === '1';
-    var segTimeout = null, tickInt = null, segStart = 0;
 
     var elContent = document.getElementById('liveContent');
 
-    function secsFromDur(d) {
-      if (!d) return 0;
-      var p = String(d).split(':').map(Number);
-      if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2];
-      if (p.length === 2) return p[0] * 60 + p[1];
-      return p[0] || 0;
-    }
-    function pad(n) { return (n < 10 ? '0' : '') + n; }
-    function fmtClock(s) {
-      s = Math.max(0, Math.floor(s));
-      var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
-      return h > 0 ? h + ':' + pad(m) + ':' + pad(x) : m + ':' + pad(x);
-    }
-    function fmtMS(s) {
-      s = Math.max(0, Math.floor(s));
-      return Math.floor(s / 60) + ':' + pad(s % 60);
-    }
     function esc(s) {
       return String(s).replace(/[&<>"']/g, function (c) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -94,8 +75,7 @@
         (g.videos || []).forEach(function (v, i) {
           p.push({
             videoId: v.id, gameTitle: g.title, gameSlug: g.slug, year: g.year,
-            partIndex: i + 1, partCount: (g.videos || []).length,
-            durationSec: secsFromDur(v.duration)
+            partIndex: i + 1, partCount: (g.videos || []).length
           });
         });
       });
@@ -105,19 +85,11 @@
       if (bag.length === 0) bag = shuffle(pool.slice());
       return bag.pop();
     }
-    function makePick() {
-      var e = draw();
-      if (!e) return null;
-      var maxStart = Math.max(0, e.durationSec - 680);
-      var minStart = maxStart > 200 ? 90 : 0;
-      var span = Math.max(1, maxStart - minStart);
-      return { e: e, start: minStart + Math.floor(Math.random() * span) };
-    }
     function fillSchedule() {
       while (schedule.length < SCHEDULE_AHEAD && pool.length) {
-        var pk = makePick();
-        if (!pk) break;
-        schedule.push(pk);
+        var e = draw();
+        if (!e) break;
+        schedule.push(e);
       }
     }
 
@@ -125,9 +97,9 @@
       elContent.innerHTML =
         '<div class="live-head">'
           + '<h1>Cinema Mode</h1>'
-          + '<p class="series-meta">Every PS5 Pro 4K walkthrough on a continuous rotation, ten minutes per clip '
-          + 'from a random moment. No ads, no settings - press play and lean back. '
-          + '<span id="poolCount">' + pool.length + '</span> clips in rotation.</p>'
+          + '<p class="series-meta">Every PS5 Pro 4K walkthrough, played in full - start to finish, back to back. '
+          + 'No ads, no settings; press play and lean back. '
+          + '<span id="poolCount">' + pool.length + '</span> videos in rotation.</p>'
         + '</div>'
         + '<div class="live-stage">'
           + '<div class="player-wrap overlayed" id="playerWrap">'
@@ -136,18 +108,16 @@
             + '<div class="player-overlay" id="overlay">'
               + '<div class="overlay-card">'
                 + '<h3>Cinema Mode</h3>'
-                + '<p>A continuous, no-distraction reel of every walkthrough on the channel - '
-                + 'ten minutes per clip. Press play and lean back.</p>'
+                + '<p>A continuous, no-distraction channel of every walkthrough on the channel - '
+                + 'each one played in full, start to finish. Press play and lean back.</p>'
                 + '<div class="overlay-actions">'
                   + '<button class="overlay-btn primary" id="goLiveBtn" disabled>Loading&hellip;</button>'
                 + '</div>'
               + '</div>'
             + '</div>'
           + '</div>'
-          + '<div class="segment-bar"><div class="segment-fill" id="segFill"></div></div>'
           + '<div class="live-controls">'
             + '<div class="live-np" id="liveNp"></div>'
-            + '<span class="seg-time" id="segTime">0:00 / 10:00</span>'
             + '<div class="live-actions">'
               + '<button class="np-btn" id="muteBtn">' + (muted ? 'Unmute' : 'Mute') + '</button>'
               + '<button class="np-btn" id="fsBtn">Fullscreen</button>'
@@ -168,29 +138,20 @@
     function renderUpNext() {
       var list = document.getElementById('upnextList');
       if (!list) return;
-      list.innerHTML = schedule.slice(0, SHOW_UPNEXT).map(function (p, i) {
-        var e = p.e;
+      list.innerHTML = schedule.slice(0, SHOW_UPNEXT).map(function (e, i) {
         return '<div class="upnext-item">'
           + '<span class="un-thumb" style="background-image:url(\'https://i.ytimg.com/vi/'
             + e.videoId + '/mqdefault.jpg\')"><span class="un-pos">' + (i + 1) + '</span></span>'
           + '<span class="un-info"><span class="un-title">' + esc(e.gameTitle) + '</span>'
-          + '<span class="un-sub">' + partTxt(e) + ' &middot; from ' + fmtClock(p.start) + '</span>'
-          + '</span></div>';
+          + '<span class="un-sub">' + partTxt(e) + '</span></span>'
+          + '</div>';
       }).join('');
     }
     function renderNp() {
       var n = document.getElementById('liveNp');
       if (!n || !current) return;
       n.innerHTML = '<span class="np-now">Now playing</span>'
-        + '<span class="np-game">' + esc(current.e.gameTitle) + ' &middot; ' + partTxt(current.e) + '</span>';
-    }
-    function tick() {
-      var el = Date.now() - segStart;
-      var pct = Math.min(100, el / SEGMENT_MS * 100);
-      var sf = document.getElementById('segFill');
-      if (sf) sf.style.width = pct.toFixed(2) + '%';
-      var st = document.getElementById('segTime');
-      if (st) st.textContent = fmtMS(Math.min(SEGMENT_MS, el) / 1000) + ' / 10:00';
+        + '<span class="np-game">' + esc(current.gameTitle) + ' &middot; ' + partTxt(current) + '</span>';
     }
     function toggleMute() {
       muted = !muted;
@@ -219,17 +180,11 @@
       if (b) b.textContent = isFullscreen() ? 'Exit fullscreen' : 'Fullscreen';
     }
 
-    function beginSegment() {
-      segStart = Date.now();
-      if (segTimeout) clearTimeout(segTimeout);
-      if (tickInt) clearInterval(tickInt);
-      segTimeout = setTimeout(advance, SEGMENT_MS);
-      tickInt = setInterval(tick, 1000);
+    function playCurrent() {
       renderNp();
       renderUpNext();
-      tick();
       if (apiReady && player && current) {
-        player.loadVideoById({ videoId: current.e.videoId, startSeconds: current.start });
+        player.loadVideoById({ videoId: current.videoId, startSeconds: 0 });
         if (muted) player.mute(); else player.unMute();
       }
     }
@@ -238,7 +193,7 @@
       if (!schedule.length) return;
       current = schedule.shift();
       fillSchedule();
-      beginSegment();
+      playCurrent();
     }
     function startLive() {
       if (live) return;
@@ -252,7 +207,7 @@
       player = new YT.Player('player', {
         width: '100%',
         height: '100%',
-        videoId: schedule[0].e.videoId,
+        videoId: schedule[0].videoId,
         playerVars: { rel: 0, modestbranding: 1, playsinline: 1, controls: 1, fs: 0 },
         events: {
           'onReady': function () {
@@ -261,12 +216,14 @@
             var b = document.getElementById('goLiveBtn');
             if (b) { b.disabled = false; b.innerHTML = '&#9654; Go Live'; }
             if (live && current) {
-              player.loadVideoById({ videoId: current.e.videoId, startSeconds: current.start });
+              player.loadVideoById({ videoId: current.videoId, startSeconds: 0 });
               if (muted) player.mute(); else player.unMute();
             }
           },
-          'onError': function () { if (live) advance(); },
-          'onStateChange': function () {}
+          'onStateChange': function (e) {
+            if (live && e.data === YT.PlayerState.ENDED) advance();
+          },
+          'onError': function () { if (live) advance(); }
         }
       });
     };
