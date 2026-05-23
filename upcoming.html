@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Games &mdash; Gaming Cinema</title>
+  <meta name="description" content="PS5 games coming soon to Gaming Cinema - upcoming cinematic walkthroughs including Grand Theft Auto VI, Marvel's Wolverine, Onimusha, Pragmata and more.">
+  <meta property="og:title" content="Upcoming Games &mdash; Gaming Cinema">
+  <meta property="og:description" content="The cinematic PS5 games we plan to capture in 4K once they launch.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="index.html">Gaming Cinema</a>
+        <span class="tagline">PS5 Pro &middot; 4K HDR &middot; PSSR &middot; No Commentary</span>
+      </div>
+      <nav class="primary">
+        <a href="index.html#games">Walkthroughs</a>
+        <a href="upcoming.html">Upcoming</a>
+        <a href="live.html" class="nav-live">Live</a>
+        <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
+      </nav>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">&#9776;</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sidebar-section">
+          <h4>Gaming Cinema</h4>
+          <ul class="sidebar-list sidebar-nav">
+            <li><a href="index.html">Walkthroughs</a></li>
+            <li><a href="upcoming.html" class="active">Upcoming Games</a></li>
+            <li><a href="live.html">Live</a></li>
+            <li><a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">Gaming Cinema YouTube &#8599;</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <h1>Upcoming Games</h1>
+        <p class="lead">The cinematic, story-driven PS5 games on our radar - the titles we plan to capture in 4K HDR walkthroughs the moment they launch.</p>
+      </section>
+
+      <div class="upcoming-list" id="upcomingList"></div>
+      <div class="no-results" id="upError" style="display:none;">
+        Could not load upcoming games. Please refresh the page.
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Gaming Cinema &middot; No-commentary PS5 Pro 4K cinematic walkthroughs &middot; <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube Channel</a></p>
+  </footer>
+
+  <script>
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function renderUpcoming(games) {
+      var grid = document.getElementById('upcomingList');
+      grid.innerHTML = games.map(function (g) {
+        var dateBlock = String(g.badge || '').split(' ').map(function (w) {
+          return '<span>' + esc(w) + '</span>';
+        }).join('');
+        var tags = (g.genre || []).map(function (t) {
+          return '<span class="meta-pill">' + esc(t) + '</span>';
+        }).join('');
+        var paras = String(g.description || '').split('\n\n').map(function (p) {
+          return '<p>' + esc(p) + '</p>';
+        }).join('');
+        var trailer = 'https://www.youtube.com/results?search_query='
+          + encodeURIComponent(g.trailerQuery || (g.title + ' official trailer'));
+        return '<article class="upcoming-card">'
+          + '<div class="up-date">' + dateBlock + '</div>'
+          + '<div class="up-body">'
+            + '<h2>' + esc(g.title) + '</h2>'
+            + '<div class="up-meta">' + esc(g.developer || '')
+              + (g.expected ? ' &middot; ' + esc(g.expected) : '') + '</div>'
+            + '<div class="up-tags">' + tags + '</div>'
+            + '<div class="up-desc">' + paras + '</div>'
+            + '<a class="up-trailer" href="' + trailer + '" target="_blank" rel="noopener">'
+            + '&#9654; Watch official trailer</a>'
+          + '</div>'
+        + '</article>';
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('upcoming.json')
+        .then(function (r) { return r.json(); })
+        .then(function (games) {
+          if (!Array.isArray(games) || !games.length) throw new Error('empty');
+          renderUpcoming(games);
+        })
+        .catch(function (err) {
+          document.getElementById('upError').style.display = 'block';
+          console.error(err);
+        });
+
+      document.getElementById('sidebarToggle').addEventListener('click', function () {
+        document.getElementById('sidebar').classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

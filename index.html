@@ -21,6 +21,7 @@
       </div>
       <nav class="primary">
         <a href="#games">Walkthroughs</a>
+        <a href="upcoming.html">Upcoming</a>
         <a href="live.html" class="nav-live">Live</a>
         <a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">YouTube</a>
       </nav>
@@ -31,6 +32,15 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
+        <div class="sidebar-section">
+          <h4>Gaming Cinema</h4>
+          <ul class="sidebar-list sidebar-nav">
+            <li><a href="index.html" class="active">Walkthroughs</a></li>
+            <li><a href="upcoming.html">Upcoming Games</a></li>
+            <li><a href="live.html">Live</a></li>
+            <li><a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">Gaming Cinema YouTube &#8599;</a></li>
+          </ul>
+        </div>
         <div class="sidebar-section">
           <h4>Browse</h4>
           <ul class="sidebar-list" id="browseList">
@@ -142,7 +152,7 @@
       document.getElementById('countAll').textContent = allGames.length;
 
       // Wire up clicks
-      document.querySelectorAll('.sidebar-list a').forEach(a => {
+      document.querySelectorAll('.sidebar-list a[data-filter-type]').forEach(a => {
         a.addEventListener('click', e => {
           e.preventDefault();
           const type = a.dataset.filterType;
@@ -157,7 +167,7 @@
     function setFilter(type, value) {
       activeFilter = { type, value };
       // Update sidebar active state
-      document.querySelectorAll('.sidebar-list a').forEach(a => {
+      document.querySelectorAll('.sidebar-list a[data-filter-type]').forEach(a => {
         a.classList.toggle('active',
           a.dataset.filterType === type && a.dataset.filterValue === value);
       });
@@ -192,7 +202,7 @@
 
       // Sort
       if (activeFilter.type === 'newest') {
-        filtered.sort((a, b) => b.year - a.year);
+        filtered.sort((a, b) => b._idx - a._idx);
       } else {
         filtered.sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title));
       }
@@ -252,6 +262,7 @@
       try {
         const res = await fetch('games.json');
         allGames = await res.json();
+        allGames.forEach((g, i) => g._idx = i);
         renderSidebar();
         renderGames();
       } catch (err) {
