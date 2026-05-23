@@ -30,19 +30,34 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="sidebar-section">
-          <h4>Gaming Cinema</h4>
-          <ul class="sidebar-list sidebar-nav">
-            <li><a href="index.html">Walkthroughs</a></li>
-            <li><a href="upcoming.html" class="active">Upcoming Games</a></li>
-            <li><a href="live.html">Live</a></li>
-            <li><a href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">Gaming Cinema YouTube &#8599;</a></li>
-          </ul>
+
+        <div class="nav-group">
+          <a class="nav-link" href="index.html">Walkthroughs</a>
         </div>
+
+        <div class="nav-group">
+          <a class="nav-link active" href="upcoming.html">Upcoming Games</a>
+        </div>
+
+        <div class="nav-group collapsible collapsed" data-section="live">
+          <button class="nav-head"><span>Live</span><span class="chevron">&#9662;</span></button>
+          <div class="nav-body">
+            <ul class="sidebar-list">
+              <li><a href="live.html">Store Mode</a></li>
+              <li><a href="cinema.html">Cinema Mode</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <a class="nav-link" href="https://www.youtube.com/@4k_gaming_cinema" target="_blank" rel="noopener">Gaming Cinema YouTube &#8599;</a>
+        </div>
+
       </div>
     </aside>
 
     <main>
+      <a href="index.html" class="back-link">&larr; Back to Walkthroughs</a>
       <section class="hero">
         <h1>Upcoming Games</h1>
         <p class="lead">The cinematic, story-driven PS5 games on our radar - the titles we plan to capture in 4K HDR walkthroughs the moment they launch.</p>
@@ -108,6 +123,19 @@
 
       document.getElementById('sidebarToggle').addEventListener('click', function () {
         document.getElementById('sidebar').classList.toggle('open');
+      });
+
+      // Collapsible nav groups - persist state in localStorage
+      document.querySelectorAll('.collapsible').forEach(function (sec) {
+        var key = 'gc_nav_' + sec.dataset.section;
+        var saved = localStorage.getItem(key);
+        if (saved === 'collapsed') sec.classList.add('collapsed');
+        else if (saved === 'open') sec.classList.remove('collapsed');
+        var btn = sec.querySelector('button');
+        if (btn) btn.addEventListener('click', function () {
+          sec.classList.toggle('collapsed');
+          localStorage.setItem(key, sec.classList.contains('collapsed') ? 'collapsed' : 'open');
+        });
       });
     });
   </script>
