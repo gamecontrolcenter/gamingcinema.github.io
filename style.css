@@ -1229,3 +1229,14 @@ footer.site-footer a:hover { text-decoration: underline; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.game-pick-year {
+  grid-column: 1 / -1;
+  font-size: 0.72em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  padding: 9px 8px 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3px;
+}

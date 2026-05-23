@@ -106,8 +106,7 @@
 
     function buildGameList(games) {
       return games.filter(function (g) { return !g.ageRestricted; })
-        .map(function (g) { return { slug: g.slug, title: g.title }; })
-        .sort(function (a, b) { return a.title.localeCompare(b.title); });
+        .map(function (g) { return { slug: g.slug, title: g.title, year: g.year || 0 }; });
     }
     function buildPool(games) {
       var p = [];
@@ -228,7 +227,7 @@
               + '<label>Games in rotation <span class="hint" id="gamesCount"></span></label>'
               + '<div class="game-pick-bar">'
                 + '<button class="np-btn" id="gamesAll">Select all</button>'
-                + '<span class="panel-note">Uncheck any game you do not want in the live rotation.</span>'
+                + '<span class="panel-note">Grouped by release year. Uncheck any game you do not want in rotation.</span>'
               + '</div>'
               + '<div class="game-pick-list" id="gamePickList"></div>'
             + '</div>'
@@ -362,12 +361,24 @@
     function renderGamePicker() {
       var list = document.getElementById('gamePickList');
       if (!list) return;
-      list.innerHTML = gameList.map(function (g) {
-        var on = disabledGames.indexOf(g.slug) < 0;
-        return '<label class="game-pick-item">'
-          + '<input type="checkbox" data-slug="' + g.slug + '"' + (on ? ' checked' : '') + '>'
-          + '<span>' + esc(g.title) + '</span></label>';
-      }).join('');
+      var byYear = {};
+      gameList.forEach(function (g) {
+        var y = g.year || 0;
+        (byYear[y] = byYear[y] || []).push(g);
+      });
+      var years = Object.keys(byYear).map(Number).sort(function (a, b) { return b - a; });
+      var html = '';
+      years.forEach(function (y) {
+        html += '<div class="game-pick-year">' + (y ? y : 'Other') + '</div>';
+        byYear[y].sort(function (a, b) { return a.title.localeCompare(b.title); });
+        byYear[y].forEach(function (g) {
+          var on = disabledGames.indexOf(g.slug) < 0;
+          html += '<label class="game-pick-item">'
+            + '<input type="checkbox" data-slug="' + g.slug + '"' + (on ? ' checked' : '') + '>'
+            + '<span>' + esc(g.title) + '</span></label>';
+        });
+      });
+      list.innerHTML = html;
       updateGamesCount();
     }
     function updateGamesCount() {
