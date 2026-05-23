@@ -42,6 +42,7 @@
     var SHOW_UPNEXT = 6;
     var SCHEDULE_AHEAD = 8;
     var TICKER_SPEED = 100;
+    var TICKER_BASE_HEIGHT = 42;
     var DEFAULT_ANNOUNCE = 'Welcome to Gaming Cinema Live - fresh PS5 Pro 4K HDR walkthroughs every week. Subscribe on YouTube @4k_gaming_cinema';
     var DEFAULT_GAP = 8;
     var DEFAULT_LOGO_SIZE = 44;
@@ -50,6 +51,7 @@
     var DEFAULT_TICKER_POS = 'bottom';
     var DEFAULT_TICKER_FONT = 16;
 
+    var allGames = [], gameList = [], disabledGames = [];
     var pool = [], bag = [], schedule = [], current = null;
     var player = null, apiReady = false, live = false;
     var muted = localStorage.getItem('gc_live_muted') === '1';
@@ -61,6 +63,7 @@
     var tickerTextColor = DEFAULT_TXT_COLOR, tickerBgColor = DEFAULT_BG_COLOR;
     var tickerPos = DEFAULT_TICKER_POS, tickerFont = DEFAULT_TICKER_FONT;
     var logoData = '', logoSize = DEFAULT_LOGO_SIZE;
+    var normalPlayerWidth = 0;
 
     var elContent = document.getElementById('liveContent');
 
@@ -101,10 +104,16 @@
         .filter(function (s) { return s.length > 0; });
     }
 
+    function buildGameList(games) {
+      return games.filter(function (g) { return !g.ageRestricted; })
+        .map(function (g) { return { slug: g.slug, title: g.title }; })
+        .sort(function (a, b) { return a.title.localeCompare(b.title); });
+    }
     function buildPool(games) {
       var p = [];
       games.forEach(function (g) {
         if (g.ageRestricted) return;
+        if (disabledGames.indexOf(g.slug) >= 0) return;
         (g.videos || []).forEach(function (v, i) {
           p.push({
             videoId: v.id, gameTitle: g.title, gameSlug: g.slug, year: g.year,
@@ -121,13 +130,18 @@
     }
     function makePick() {
       var e = draw();
+      if (!e) return null;
       var maxStart = Math.max(0, e.durationSec - 320);
       var minStart = maxStart > 200 ? 90 : 0;
       var span = Math.max(1, maxStart - minStart);
       return { e: e, start: minStart + Math.floor(Math.random() * span) };
     }
     function fillSchedule() {
-      while (schedule.length < SCHEDULE_AHEAD) schedule.push(makePick());
+      while (schedule.length < SCHEDULE_AHEAD && pool.length) {
+        var pk = makePick();
+        if (!pk) break;
+        schedule.push(pk);
+      }
     }
 
     function renderStage() {
@@ -135,7 +149,8 @@
         '<div class="live-head">'
           + '<h1><span class="live-dot"></span> Gaming Cinema Live</h1>'
           + '<p class="series-meta">A non-stop trailer channel - every PS5 Pro 4K walkthrough, '
-          + 'five minutes at a time, from a random moment. ' + pool.length + ' clips in rotation.</p>'
+          + 'five minutes at a time, from a random moment. '
+          + '<span id="poolCount">' + pool.length + '</span> clips in rotation.</p>'
         + '</div>'
         + '<div class="live-stage">'
           + '<div class="player-wrap overlayed" id="playerWrap">'
@@ -209,6 +224,14 @@
                 + '<input type="range" id="logoSize" min="24" max="84" step="2">'
               + '</div>'
             + '</div>'
+            + '<div class="panel-row">'
+              + '<label>Games in rotation <span class="hint" id="gamesCount"></span></label>'
+              + '<div class="game-pick-bar">'
+                + '<button class="np-btn" id="gamesAll">Select all</button>'
+                + '<span class="panel-note">Uncheck any game you do not want in the live rotation.</span>'
+              + '</div>'
+              + '<div class="game-pick-list" id="gamePickList"></div>'
+            + '</div>'
             + '<div class="panel-actions">'
               + '<span class="panel-note">Settings are saved in this browser only.</span>'
               + '<button class="np-btn" id="logoRemove">Remove logo</button>'
@@ -248,7 +271,7 @@
         tickerFont = parseInt(e.target.value, 10) || DEFAULT_TICKER_FONT;
         document.getElementById('tickerFontVal').textContent = tickerFont + 'px';
         localStorage.setItem('gc_live_tickerfont', String(tickerFont));
-        applyTickerFont();
+        applyTickerScale();
       });
       document.getElementById('txtColor').addEventListener('input', function (e) {
         tickerTextColor = e.target.value;
@@ -293,8 +316,75 @@
         applyLogo();
       });
 
+      document.getElementById('gamePickList').addEventListener('change', function (e) {
+        var cb = e.target;
+        if (!cb || cb.type !== 'checkbox') return;
+        var slug = cb.getAttribute('data-slug');
+        if (cb.checked) {
+          var idx = disabledGames.indexOf(slug);
+          if (idx >= 0) disabledGames.splice(idx, 1);
+        } else {
+          var stillOn = gameList.filter(function (g) {
+            return disabledGames.indexOf(g.slug) < 0;
+          }).length - 1;
+          if (stillOn < 1) {
+            cb.checked = true;
+            alert('Keep at least one game in rotation.');
+            return;
+          }
+          if (disabledGames.indexOf(slug) < 0) disabledGames.push(slug);
+        }
+        saveDisabled();
+        updateGamesCount();
+        onSelectionChanged();
+      });
+      document.getElementById('gamesAll').addEventListener('click', function () {
+        disabledGames = [];
+        saveDisabled();
+        renderGamePicker();
+        onSelectionChanged();
+      });
+
       document.addEventListener('fullscreenchange', onFsChange);
       document.addEventListener('webkitfullscreenchange', onFsChange);
+    }
+
+    function loadGameSelection() {
+      try {
+        var s = JSON.parse(localStorage.getItem('gc_live_disabledgames') || '[]');
+        disabledGames = Array.isArray(s) ? s : [];
+      } catch (e) { disabledGames = []; }
+    }
+    function saveDisabled() {
+      try { localStorage.setItem('gc_live_disabledgames', JSON.stringify(disabledGames)); }
+      catch (e) {}
+    }
+    function renderGamePicker() {
+      var list = document.getElementById('gamePickList');
+      if (!list) return;
+      list.innerHTML = gameList.map(function (g) {
+        var on = disabledGames.indexOf(g.slug) < 0;
+        return '<label class="game-pick-item">'
+          + '<input type="checkbox" data-slug="' + g.slug + '"' + (on ? ' checked' : '') + '>'
+          + '<span>' + esc(g.title) + '</span></label>';
+      }).join('');
+      updateGamesCount();
+    }
+    function updateGamesCount() {
+      var on = gameList.filter(function (g) {
+        return disabledGames.indexOf(g.slug) < 0;
+      }).length;
+      var el = document.getElementById('gamesCount');
+      if (el) el.textContent = on + ' of ' + gameList.length + ' selected';
+    }
+    function onSelectionChanged() {
+      pool = buildPool(allGames);
+      bag = [];
+      schedule = [];
+      fillSchedule();
+      renderUpNext();
+      var pc = document.getElementById('poolCount');
+      if (pc) pc.textContent = pool.length;
     }
 
     function loadSettings() {
@@ -319,7 +409,7 @@
       if (isNaN(tickerFont) || tickerFont < 8) tickerFont = DEFAULT_TICKER_FONT;
       document.getElementById('tickerFont').value = tickerFont;
       document.getElementById('tickerFontVal').textContent = tickerFont + 'px';
-      applyTickerFont();
+      applyTickerScale();
 
       tickerTextColor = localStorage.getItem('gc_live_txtcolor') || DEFAULT_TXT_COLOR;
       tickerBgColor = localStorage.getItem('gc_live_bgcolor') || DEFAULT_BG_COLOR;
@@ -336,6 +426,8 @@
       logoData = localStorage.getItem('gc_live_logo') || '';
       applyLogo();
 
+      renderGamePicker();
+
       if (localStorage.getItem('gc_live_panel') === 'collapsed') {
         document.getElementById('panel').classList.add('collapsed');
       }
@@ -346,7 +438,6 @@
       if (!t) return;
       t.classList.remove('pos-top', 'pos-middle', 'pos-bottom');
       t.classList.add('pos-' + tickerPos);
-      // Apply position as inline styles too, so it works even if style.css is cached/stale.
       if (tickerPos === 'top') {
         t.style.top = '0'; t.style.bottom = 'auto'; t.style.transform = 'none';
       } else if (tickerPos === 'middle') {
@@ -355,9 +446,21 @@
         t.style.top = 'auto'; t.style.bottom = '0'; t.style.transform = 'none';
       }
     }
-    function applyTickerFont() {
+    function applyTickerScale() {
       var tx = document.getElementById('tickerText');
-      if (tx) tx.style.fontSize = tickerFont + 'px';
+      var t = document.getElementById('ticker');
+      var pw = document.getElementById('playerWrap');
+      if (!tx || !t || !pw) return;
+      var f = 1;
+      if (isFullscreen()) {
+        if (normalPlayerWidth > 0) f = Math.max(1, pw.clientWidth / normalPlayerWidth);
+      } else if (pw.clientWidth > 0) {
+        normalPlayerWidth = pw.clientWidth;
+      }
+      tx.style.fontSize = Math.round(tickerFont * f) + 'px';
+      var h = Math.round(TICKER_BASE_HEIGHT * f);
+      t.style.height = h + 'px';
+      t.style.lineHeight = h + 'px';
     }
     function applyTickerColors() {
       var tx = document.getElementById('tickerText');
@@ -457,7 +560,10 @@
     function onFsChange() {
       var b = document.getElementById('fsBtn');
       if (b) b.textContent = isFullscreen() ? 'Exit fullscreen' : 'Fullscreen';
-      restartTicker();
+      requestAnimationFrame(function () {
+        applyTickerScale();
+        restartTicker();
+      });
     }
 
     function beginSegment() {
@@ -469,12 +575,14 @@
       renderNp();
       renderUpNext();
       tick();
-      if (apiReady && player) {
+      if (apiReady && player && current) {
         player.loadVideoById({ videoId: current.e.videoId, startSeconds: current.start });
         if (muted) player.mute(); else player.unMute();
       }
     }
     function advance() {
+      if (!schedule.length) fillSchedule();
+      if (!schedule.length) return;
       current = schedule.shift();
       fillSchedule();
       beginSegment();
@@ -514,7 +622,15 @@
       fetch('games.json')
         .then(function (r) { return r.json(); })
         .then(function (games) {
+          allGames = games;
+          loadGameSelection();
+          gameList = buildGameList(games);
           pool = buildPool(games);
+          if (!pool.length && gameList.length) {
+            disabledGames = [];
+            saveDisabled();
+            pool = buildPool(games);
+          }
           if (!pool.length) {
             elContent.innerHTML = '<div class="series-notice">No playable videos are available right now.</div>';
             return;

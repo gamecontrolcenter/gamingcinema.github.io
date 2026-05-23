@@ -1189,3 +1189,43 @@ footer.site-footer a:hover { text-decoration: underline; }
   padding: 3px;
   cursor: pointer;
 }
+
+/* ===== Live: game rotation picker ===== */
+.game-pick-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 7px;
+}
+.game-pick-list {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 2px;
+}
+.game-pick-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 0.85em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.game-pick-item:hover { background: var(--bg); }
+.game-pick-item input {
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.game-pick-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
