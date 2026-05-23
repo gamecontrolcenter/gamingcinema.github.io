@@ -1028,3 +1028,123 @@ footer.site-footer a:hover { text-decoration: underline; }
 @media (max-width: 600px) {
   .upnext-list { grid-template-columns: 1fr; }
 }
+
+/* ===== Live: broadcast control panel ===== */
+.panel {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.panel-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: 0;
+  padding: 13px 18px;
+  font-family: inherit;
+  font-size: 0.92em;
+  font-weight: 700;
+  color: var(--dark);
+  cursor: pointer;
+}
+.panel-toggle:hover { color: var(--accent); }
+.panel-toggle .chev {
+  font-size: 0.8em;
+  opacity: 0.6;
+  transition: transform 0.2s;
+}
+.panel.collapsed .chev { transform: rotate(-90deg); }
+.panel-body {
+  padding: 4px 18px 18px;
+  border-top: 1px solid var(--border);
+}
+.panel.collapsed .panel-body { display: none; }
+.panel-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 13px;
+}
+.panel-row label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--text);
+}
+.panel-row .hint {
+  font-weight: 400;
+  color: var(--muted);
+}
+.panel-row textarea,
+.panel-row input[type="number"] {
+  font-family: inherit;
+  font-size: 0.92em;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--bg-soft);
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+}
+.panel-row textarea:focus,
+.panel-row input[type="number"]:focus {
+  border-color: var(--accent);
+  background: var(--bg);
+}
+.panel-row input[type="file"] { font-size: 0.82em; }
+.panel-row input[type="range"] { accent-color: var(--accent); }
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+.panel-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.panel-note { font-size: 0.78em; color: var(--muted); }
+
+/* ===== Live: company logo bug ===== */
+.live-logo {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  background: rgba(0,0,0,0.34);
+  padding: 5px 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.32);
+}
+
+/* ===== Live: announcement ticker ===== */
+.ticker {
+  margin-top: 8px;
+  height: 42px;
+  line-height: 42px;
+  background: #141414;
+  border-radius: 6px;
+  border-top: 2px solid var(--accent);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.ticker-text {
+  display: inline-block;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 600;
+  will-change: transform;
+  padding-left: 4px;
+}

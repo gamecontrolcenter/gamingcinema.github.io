@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live &mdash; Gaming Cinema</title>
-  <meta name="description" content="Gaming Cinema Live &mdash; a non-stop trailer channel cycling through every PS5 Pro 4K walkthrough, five minutes at a time.">
+  <meta name="description" content="Gaming Cinema Live - a non-stop trailer channel cycling through every PS5 Pro 4K walkthrough, five minutes at a time.">
   <meta name="robots" content="noindex">
   <meta property="og:title" content="Gaming Cinema Live">
   <meta property="og:type" content="website">
@@ -41,16 +41,20 @@
     var SEGMENT_MS = 5 * 60 * 1000;
     var SHOW_UPNEXT = 6;
     var SCHEDULE_AHEAD = 8;
+    var TICKER_SPEED = 100;
+    var DEFAULT_ANNOUNCE = 'Welcome to Gaming Cinema Live - fresh PS5 Pro 4K HDR walkthroughs every week. Subscribe on YouTube @4k_gaming_cinema';
+    var DEFAULT_GAP = 8;
+    var DEFAULT_LOGO_SIZE = 44;
 
-    var pool = [];
-    var bag = [];
-    var schedule = [];
-    var current = null;
-    var player = null;
-    var apiReady = false;
-    var live = false;
+    var pool = [], bag = [], schedule = [], current = null;
+    var player = null, apiReady = false, live = false;
     var muted = localStorage.getItem('gc_live_muted') === '1';
     var segTimeout = null, tickInt = null, segStart = 0;
+
+    var announcements = [];
+    var gapMs = DEFAULT_GAP * 1000;
+    var tickerTimer = null, tickerIdx = 0;
+    var logoData = '', logoSize = DEFAULT_LOGO_SIZE;
 
     var elContent = document.getElementById('liveContent');
 
@@ -86,6 +90,10 @@
     function partTxt(e) {
       return e.partCount > 1 ? 'Part ' + e.partIndex + ' / ' + e.partCount : 'Full walkthrough';
     }
+    function parseAnn(text) {
+      return String(text || '').split(/\r?\n/).map(function (s) { return s.trim(); })
+        .filter(function (s) { return s.length > 0; });
+    }
 
     function buildPool(games) {
       var p = [];
@@ -93,19 +101,14 @@
         if (g.ageRestricted) return;
         (g.videos || []).forEach(function (v, i) {
           p.push({
-            videoId: v.id,
-            gameTitle: g.title,
-            gameSlug: g.slug,
-            year: g.year,
-            partIndex: i + 1,
-            partCount: (g.videos || []).length,
+            videoId: v.id, gameTitle: g.title, gameSlug: g.slug, year: g.year,
+            partIndex: i + 1, partCount: (g.videos || []).length,
             durationSec: secsFromDur(v.duration)
           });
         });
       });
       return p;
     }
-
     function draw() {
       if (bag.length === 0) bag = shuffle(pool.slice());
       return bag.pop();
@@ -115,8 +118,7 @@
       var maxStart = Math.max(0, e.durationSec - 320);
       var minStart = maxStart > 200 ? 90 : 0;
       var span = Math.max(1, maxStart - minStart);
-      var start = minStart + Math.floor(Math.random() * span);
-      return { e: e, start: start };
+      return { e: e, start: minStart + Math.floor(Math.random() * span) };
     }
     function fillSchedule() {
       while (schedule.length < SCHEDULE_AHEAD) schedule.push(makePick());
@@ -126,25 +128,56 @@
       elContent.innerHTML =
         '<div class="live-head">'
           + '<h1><span class="live-dot"></span> Gaming Cinema Live</h1>'
-          + '<p class="series-meta">A non-stop trailer channel &mdash; every PS5 Pro 4K walkthrough, '
+          + '<p class="series-meta">A non-stop trailer channel - every PS5 Pro 4K walkthrough, '
           + 'five minutes at a time, from a random moment. ' + pool.length + ' clips in rotation.</p>'
+        + '</div>'
+        + '<div class="panel" id="panel">'
+          + '<button class="panel-toggle" id="panelToggle">'
+            + '<span>&#9881; Broadcast settings</span><span class="chev">&#9662;</span>'
+          + '</button>'
+          + '<div class="panel-body">'
+            + '<div class="panel-row">'
+              + '<label for="annInput">Ticker announcements <span class="hint">one per line</span></label>'
+              + '<textarea id="annInput" rows="3" placeholder="Type an announcement or ad message..."></textarea>'
+            + '</div>'
+            + '<div class="panel-grid">'
+              + '<div class="panel-row">'
+                + '<label for="gapInput">Repeat gap (seconds)</label>'
+                + '<input type="number" id="gapInput" min="0" max="600" step="1">'
+              + '</div>'
+              + '<div class="panel-row">'
+                + '<label for="logoInput">Company logo</label>'
+                + '<input type="file" id="logoInput" accept="image/*">'
+              + '</div>'
+              + '<div class="panel-row">'
+                + '<label for="logoSize">Logo size <span class="hint" id="logoSizeVal">44px</span></label>'
+                + '<input type="range" id="logoSize" min="24" max="84" step="2">'
+              + '</div>'
+            + '</div>'
+            + '<div class="panel-actions">'
+              + '<span class="panel-note">Settings are saved in this browser only.</span>'
+              + '<button class="np-btn" id="logoRemove">Remove logo</button>'
+            + '</div>'
+          + '</div>'
         + '</div>'
         + '<div class="live-stage">'
           + '<div class="player-wrap overlayed" id="playerWrap">'
             + '<div id="player"></div>'
             + '<div class="live-badge"><span class="bdot"></span> LIVE</div>'
+            + '<img class="live-logo" id="liveLogo" alt="" style="display:none">'
             + '<div class="live-caption" id="caption"></div>'
             + '<div class="player-overlay" id="overlay">'
               + '<div class="overlay-card">'
                 + '<h3>Gaming Cinema Live</h3>'
                 + '<p>A continuous trailer reel of every walkthrough on the channel. '
-                + 'Press play and let it run &mdash; a fresh clip every five minutes.</p>'
+                + 'Press play and let it run - a fresh clip every five minutes.</p>'
                 + '<div class="overlay-actions">'
                   + '<button class="overlay-btn primary" id="goLiveBtn" disabled>Loading&hellip;</button>'
                 + '</div>'
               + '</div>'
             + '</div>'
           + '</div>'
+          + '<div class="ticker" id="ticker"><div class="ticker-text" id="tickerText"></div></div>'
           + '<div class="segment-bar"><div class="segment-fill" id="segFill"></div></div>'
           + '<div class="live-controls">'
             + '<div class="live-np" id="liveNp"></div>'
@@ -160,6 +193,123 @@
       document.getElementById('goLiveBtn').addEventListener('click', startLive);
       document.getElementById('skipBtn').addEventListener('click', function () { if (live) advance(); });
       document.getElementById('muteBtn').addEventListener('click', toggleMute);
+
+      document.getElementById('panelToggle').addEventListener('click', function () {
+        var p = document.getElementById('panel');
+        p.classList.toggle('collapsed');
+        localStorage.setItem('gc_live_panel', p.classList.contains('collapsed') ? 'collapsed' : 'open');
+      });
+      document.getElementById('annInput').addEventListener('change', function (e) {
+        localStorage.setItem('gc_live_ticker', e.target.value);
+        announcements = parseAnn(e.target.value);
+        restartTicker();
+      });
+      document.getElementById('gapInput').addEventListener('change', function (e) {
+        var v = parseInt(e.target.value, 10);
+        if (isNaN(v) || v < 0) v = DEFAULT_GAP;
+        if (v > 600) v = 600;
+        e.target.value = v;
+        gapMs = v * 1000;
+        localStorage.setItem('gc_live_gap', String(v));
+      });
+      var ls = document.getElementById('logoSize');
+      ls.addEventListener('input', function (e) {
+        document.getElementById('logoSizeVal').textContent = e.target.value + 'px';
+      });
+      ls.addEventListener('change', function (e) {
+        logoSize = parseInt(e.target.value, 10) || DEFAULT_LOGO_SIZE;
+        localStorage.setItem('gc_live_logosize', String(logoSize));
+        applyLogo();
+      });
+      document.getElementById('logoInput').addEventListener('change', function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+          alert('That image is larger than 2 MB. Please use a smaller logo file.');
+          e.target.value = '';
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          logoData = ev.target.result;
+          try { localStorage.setItem('gc_live_logo', logoData); }
+          catch (err) { alert('Could not save the logo - the image may be too large for browser storage.'); }
+          applyLogo();
+        };
+        reader.readAsDataURL(file);
+      });
+      document.getElementById('logoRemove').addEventListener('click', function () {
+        logoData = '';
+        localStorage.removeItem('gc_live_logo');
+        document.getElementById('logoInput').value = '';
+        applyLogo();
+      });
+    }
+
+    function loadSettings() {
+      var savedAnn = localStorage.getItem('gc_live_ticker');
+      var annText = savedAnn != null ? savedAnn : DEFAULT_ANNOUNCE;
+      document.getElementById('annInput').value = annText;
+      announcements = parseAnn(annText);
+
+      var savedGap = localStorage.getItem('gc_live_gap');
+      var gap = savedGap != null ? parseInt(savedGap, 10) : DEFAULT_GAP;
+      if (isNaN(gap) || gap < 0) gap = DEFAULT_GAP;
+      gapMs = gap * 1000;
+      document.getElementById('gapInput').value = gap;
+
+      var savedSize = localStorage.getItem('gc_live_logosize');
+      logoSize = savedSize != null ? parseInt(savedSize, 10) : DEFAULT_LOGO_SIZE;
+      if (isNaN(logoSize)) logoSize = DEFAULT_LOGO_SIZE;
+      document.getElementById('logoSize').value = logoSize;
+      document.getElementById('logoSizeVal').textContent = logoSize + 'px';
+
+      logoData = localStorage.getItem('gc_live_logo') || '';
+      applyLogo();
+
+      if (localStorage.getItem('gc_live_panel') === 'collapsed') {
+        document.getElementById('panel').classList.add('collapsed');
+      }
+    }
+
+    function applyLogo() {
+      var img = document.getElementById('liveLogo');
+      if (!img) return;
+      if (logoData) {
+        img.src = logoData;
+        img.style.height = logoSize + 'px';
+        img.style.display = 'block';
+      } else {
+        img.removeAttribute('src');
+        img.style.display = 'none';
+      }
+    }
+
+    function restartTicker() {
+      if (tickerTimer) { clearTimeout(tickerTimer); tickerTimer = null; }
+      var t = document.getElementById('ticker');
+      if (!t) return;
+      if (!announcements.length) { t.style.display = 'none'; return; }
+      t.style.display = 'block';
+      cycleTicker(0);
+    }
+    function cycleTicker(i) {
+      var t = document.getElementById('ticker');
+      var tx = document.getElementById('tickerText');
+      if (!t || !tx || !announcements.length) return;
+      tickerIdx = i % announcements.length;
+      tx.textContent = announcements[tickerIdx];
+      var contW = t.clientWidth || 640;
+      var textW = tx.offsetWidth || 240;
+      var dur = Math.max(6, (contW + textW + 8) / TICKER_SPEED);
+      tx.style.transition = 'none';
+      tx.style.transform = 'translateX(' + contW + 'px)';
+      void tx.offsetWidth;
+      tx.style.transition = 'transform ' + dur.toFixed(2) + 's linear';
+      tx.style.transform = 'translateX(' + (-textW - 8) + 'px)';
+      tickerTimer = setTimeout(function () {
+        tickerTimer = setTimeout(function () { cycleTicker(tickerIdx + 1); }, gapMs);
+      }, dur * 1000);
     }
 
     function renderUpNext() {
@@ -175,21 +325,18 @@
           + '</span></div>';
       }).join('');
     }
-
     function renderCaption() {
       var c = document.getElementById('caption');
       if (!c || !current) return;
       c.innerHTML = '<span class="cap-game">' + esc(current.e.gameTitle) + '</span>'
         + '<span class="cap-sub">' + partTxt(current.e) + ' &middot; live trailer</span>';
     }
-
     function renderNp() {
       var n = document.getElementById('liveNp');
       if (!n || !current) return;
       n.innerHTML = '<span class="np-now">Now playing</span>'
         + '<span class="np-game">' + esc(current.e.gameTitle) + ' &middot; ' + partTxt(current.e) + '</span>';
     }
-
     function tick() {
       var el = Date.now() - segStart;
       var pct = Math.min(100, el / SEGMENT_MS * 100);
@@ -198,7 +345,6 @@
       var st = document.getElementById('segTime');
       if (st) st.textContent = fmtMS(Math.min(SEGMENT_MS, el) / 1000) + ' / 5:00';
     }
-
     function toggleMute() {
       muted = !muted;
       localStorage.setItem('gc_live_muted', muted ? '1' : '0');
@@ -222,13 +368,11 @@
         if (muted) player.mute(); else player.unMute();
       }
     }
-
     function advance() {
       current = schedule.shift();
       fillSchedule();
       beginSegment();
     }
-
     function startLive() {
       if (live) return;
       live = true;
@@ -254,9 +398,7 @@
               if (muted) player.mute(); else player.unMute();
             }
           },
-          'onError': function () {
-            if (live) advance();
-          },
+          'onError': function () { if (live) advance(); },
           'onStateChange': function () {}
         }
       });
@@ -273,7 +415,9 @@
           }
           fillSchedule();
           renderStage();
+          loadSettings();
           renderUpNext();
+          restartTicker();
           var tag = document.createElement('script');
           tag.src = 'https://www.youtube.com/iframe_api';
           document.head.appendChild(tag);
