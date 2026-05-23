@@ -47,6 +47,8 @@
     var DEFAULT_LOGO_SIZE = 44;
     var DEFAULT_TXT_COLOR = '#ffffff';
     var DEFAULT_BG_COLOR = '#141414';
+    var DEFAULT_TICKER_POS = 'bottom';
+    var DEFAULT_TICKER_FONT = 16;
 
     var pool = [], bag = [], schedule = [], current = null;
     var player = null, apiReady = false, live = false;
@@ -57,6 +59,7 @@
     var gapMs = DEFAULT_GAP * 1000;
     var tickerTimer = null, tickerIdx = 0;
     var tickerTextColor = DEFAULT_TXT_COLOR, tickerBgColor = DEFAULT_BG_COLOR;
+    var tickerPos = DEFAULT_TICKER_POS, tickerFont = DEFAULT_TICKER_FONT;
     var logoData = '', logoSize = DEFAULT_LOGO_SIZE;
 
     var elContent = document.getElementById('liveContent');
@@ -139,7 +142,7 @@
             + '<div id="player"></div>'
             + '<div class="live-badge"><span class="bdot"></span> LIVE</div>'
             + '<img class="live-logo" id="liveLogo" alt="" style="display:none">'
-            + '<div class="ticker" id="ticker"><div class="ticker-text" id="tickerText"></div></div>'
+            + '<div class="ticker pos-bottom" id="ticker"><div class="ticker-text" id="tickerText"></div></div>'
             + '<div class="player-overlay" id="overlay">'
               + '<div class="overlay-card">'
                 + '<h3>Gaming Cinema Live</h3>'
@@ -176,6 +179,18 @@
               + '<div class="panel-row">'
                 + '<label for="gapInput">Repeat gap (seconds)</label>'
                 + '<input type="number" id="gapInput" min="0" max="600" step="1">'
+              + '</div>'
+              + '<div class="panel-row">'
+                + '<label for="tickerPos">Ticker position</label>'
+                + '<select id="tickerPos">'
+                  + '<option value="bottom">Bottom</option>'
+                  + '<option value="middle">Middle</option>'
+                  + '<option value="top">Top</option>'
+                + '</select>'
+              + '</div>'
+              + '<div class="panel-row">'
+                + '<label for="tickerFont">Ticker font size <span class="hint" id="tickerFontVal">16px</span></label>'
+                + '<input type="range" id="tickerFont" min="12" max="30" step="1">'
               + '</div>'
               + '<div class="panel-row">'
                 + '<label for="txtColor">Ticker text color</label>'
@@ -223,6 +238,17 @@
         e.target.value = v;
         gapMs = v * 1000;
         localStorage.setItem('gc_live_gap', String(v));
+      });
+      document.getElementById('tickerPos').addEventListener('change', function (e) {
+        tickerPos = e.target.value;
+        localStorage.setItem('gc_live_tickerpos', tickerPos);
+        applyTickerPos();
+      });
+      document.getElementById('tickerFont').addEventListener('input', function (e) {
+        tickerFont = parseInt(e.target.value, 10) || DEFAULT_TICKER_FONT;
+        document.getElementById('tickerFontVal').textContent = tickerFont + 'px';
+        localStorage.setItem('gc_live_tickerfont', String(tickerFont));
+        applyTickerFont();
       });
       document.getElementById('txtColor').addEventListener('input', function (e) {
         tickerTextColor = e.target.value;
@@ -283,6 +309,18 @@
       gapMs = gap * 1000;
       document.getElementById('gapInput').value = gap;
 
+      tickerPos = localStorage.getItem('gc_live_tickerpos') || DEFAULT_TICKER_POS;
+      if (['top', 'middle', 'bottom'].indexOf(tickerPos) < 0) tickerPos = DEFAULT_TICKER_POS;
+      document.getElementById('tickerPos').value = tickerPos;
+      applyTickerPos();
+
+      var savedFont = localStorage.getItem('gc_live_tickerfont');
+      tickerFont = savedFont != null ? parseInt(savedFont, 10) : DEFAULT_TICKER_FONT;
+      if (isNaN(tickerFont) || tickerFont < 8) tickerFont = DEFAULT_TICKER_FONT;
+      document.getElementById('tickerFont').value = tickerFont;
+      document.getElementById('tickerFontVal').textContent = tickerFont + 'px';
+      applyTickerFont();
+
       tickerTextColor = localStorage.getItem('gc_live_txtcolor') || DEFAULT_TXT_COLOR;
       tickerBgColor = localStorage.getItem('gc_live_bgcolor') || DEFAULT_BG_COLOR;
       document.getElementById('txtColor').value = tickerTextColor;
@@ -303,13 +341,22 @@
       }
     }
 
+    function applyTickerPos() {
+      var t = document.getElementById('ticker');
+      if (!t) return;
+      t.classList.remove('pos-top', 'pos-middle', 'pos-bottom');
+      t.classList.add('pos-' + tickerPos);
+    }
+    function applyTickerFont() {
+      var tx = document.getElementById('tickerText');
+      if (tx) tx.style.fontSize = tickerFont + 'px';
+    }
     function applyTickerColors() {
       var tx = document.getElementById('tickerText');
       var t = document.getElementById('ticker');
       if (tx) tx.style.color = tickerTextColor;
       if (t) t.style.background = tickerBgColor;
     }
-
     function applyLogo() {
       var img = document.getElementById('liveLogo');
       if (!img) return;
