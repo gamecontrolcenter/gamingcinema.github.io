@@ -1387,3 +1387,11 @@ footer.site-footer a:hover { text-decoration: underline; }
 .collapsible.collapsed > .nav-subhead .chevron {
   transform: rotate(-90deg);
 }
+
+/* Cinema Mode fullscreen hint */
+.cinema-hint {
+  font-size: 0.82em;
+  color: var(--muted);
+  text-align: center;
+  margin: 10px 0 0;
+}
